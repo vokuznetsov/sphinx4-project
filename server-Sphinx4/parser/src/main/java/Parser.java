@@ -1,8 +1,4 @@
-import jdk.nashorn.internal.runtime.regexp.RegExp;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -48,7 +44,7 @@ public class Parser {
         Set<String> transcription = new TreeSet<String>();   // TreeSet, because I need to store only unique transcription.
 
         // exclude whole word
-        in = new BufferedReader(new FileReader(source.getAbsoluteFile()));
+        in = new BufferedReader(new FileReader(source));
         String str;
         while ((str = in.readLine()) != null) {
             if (str.contains(" ")) {
@@ -79,6 +75,8 @@ public class Parser {
     }
 
     private File openFile(String path) throws FileNotFoundException {
+        //InputStream is = Parser.class.getClass().getResourceAsStream(path);
+
         File file = new File(path);
         if (!file.exists()) {
             System.out.println("Source file don't found.");

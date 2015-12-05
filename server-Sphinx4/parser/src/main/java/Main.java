@@ -1,13 +1,14 @@
 import java.io.IOException;
 
+
 /**
  * @author vkuzn on 03.12.2015.
  */
 public class Main {
     public static void main(String[] args){
 
-        String source = "resources:0467.dic.txt";
-        String output = "resources:0467.output.dic";
+        String source = "parser/src/main/resources/0467.dic.txt";
+        String output = "parser/src/main/resources/0467.output.dic";
         Parser parser = new Parser(source,output);
         try {
             parser.parser();
