@@ -1,10 +1,15 @@
 package home.vkuzn;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server implements Runnable {
+    private static final Logger log = LoggerFactory.getLogger(Server.class);
+
     private int port;
     private ServerSocket serverSocket;
     private Socket socket;
@@ -18,6 +23,7 @@ public class Server implements Runnable {
         try {
             recognition = new Recognition();
         } catch (IOException e) {
+            log.info(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -30,14 +36,16 @@ public class Server implements Runnable {
     public void run() {
         do {
             try {
-//                recognition =  new Recognition();
                 System.out.println("Welcome to server side.");
+                log.info("-------------------------------WELCOME-------------------------------");
+                log.info("Welcome to server side.");
                 serverSocket = new ServerSocket(port);
                 socket = serverSocket.accept();
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String keyWord = in.readLine();
                 out = new PrintWriter(socket.getOutputStream(), true);
                 out.println("Speak");
+                log.info("Speak");
 
                 while (!socket.isClosed()) {
                     dataReader = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
@@ -52,6 +60,7 @@ public class Server implements Runnable {
                 serverSocket.close();
                 socket.close();
             } catch (IOException e) {
+                log.info(e.getMessage());
                 if (out != null)
                     out.close();
                 try {
@@ -62,6 +71,7 @@ public class Server implements Runnable {
                     if (socket != null)
                         socket.close();
                 } catch (IOException e1) {
+                    log.info(e1.getMessage());
                     e1.printStackTrace();
                 }
             }

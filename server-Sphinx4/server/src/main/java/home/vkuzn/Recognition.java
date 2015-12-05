@@ -17,38 +17,27 @@ import java.util.Collection;
  * @param configuration          - задаем акустическую и языковую модели и словарь.
  * @param keyWord                - ключевое слово, которое пытаемся распознать.
  * @param posteriorArrayList     - список, хранящий вероятность для каждого ключевого слова.
- *                                 В ходе одного распознования может быть несколько ключевых слов.
+ *                               В ходе одного распознования может быть несколько ключевых слов.
  * @param keyWordArrayList       - список из ключевых слов и/или слов, которые сожержат в себе ключеове слово.
  * @param pronunciationArrayList - транскрипция для каждого слова из keyWordArrayList.
  */
 
 public class Recognition {
-    private static final Logger logger = LoggerFactory.getLogger(Recognition.class);
+    private static final Logger log = LoggerFactory.getLogger(Recognition.class);
 
-    private Configuration configuration;
-    private File posterior;
-    private File node;
-    private File test;
     private String keyWord;
     private ArrayList<Double> posteriorArrayList;
     private ArrayList<String> keyWordArrayList;
     //private ArrayList<String> pronunciationArrayList;
     private LogMath logMath;
-    private PrintWriter fileWriter;
-    private PrintWriter fileWriter1;
-    private PrintWriter recognitionResult;
     private StreamSpeechRecognizer streamSpeechRecognizer;
 
     public Recognition() throws IOException {
 
-        configuration = new Configuration();
+        Configuration configuration = new Configuration();
         configuration.setAcousticModelPath("resource:/models/en-us/acoustic/8khz-5.1");
         configuration.setDictionaryPath("resource:/models/en-us/language model and dictionary/new/2/0467.dic");
         configuration.setLanguageModelPath("resource:/models/en-us/language model and dictionary/new/2/popular_words_result.lm.dmp");
-
-        posterior = createFile("server/output/posterior.txt");
-        node = createFile("server/output/node.txt");
-        test = createFile("server/output/test.txt");
 
         //pronunciationArrayList = new ArrayList<String>();
         posteriorArrayList = new ArrayList<Double>();
@@ -63,35 +52,29 @@ public class Recognition {
             posteriorArrayList = new ArrayList<Double>();
             keyWordArrayList = new ArrayList<String>();
 
-            /*----------Создание файла-------------*/
-            // Объявляется в этом месте, для того чтобы была возможность дописывать в файл
-            fileWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(posterior.getAbsoluteFile(), true), "UTF-8"));
-            fileWriter1 = new PrintWriter(new OutputStreamWriter(new FileOutputStream(node.getAbsoluteFile(), true), "UTF-8"));
-
-
             streamSpeechRecognizer.startRecognition(new FileInputStream("src/test/native_pronunciation/extra/extra_female_3.wav"));
             SpeechResult result;
 
             while ((result = streamSpeechRecognizer.getResult()) != null) {
                 getHypothesis(result);
                 if (result.getHypothesis().equalsIgnoreCase("")) {
-                    fileWriter.println("Please, repeat word" + "\n");
+                    log.info("Please, repeat word" + "\n");
                     System.out.println("Please, repeat word");
                 } else {
                     if (result.getWords().size() > 0) {
                         getPosterior(result);
                         getConfidence(result);
                     }
-                    fileWriter.println(result.getHypothesis() + "\n");
+                    log.info(result.getHypothesis() + "\n");
                     System.out.println(resultOfSpeechRecognition());
                 }
             }
-            fileWriter.close();
-            fileWriter1.close();
             streamSpeechRecognizer.stopRecognition();
         } catch (Exception e)                 // тут ловим IllegalStateException или DataProcessingException исключения, для удобства объедили их в одно исключение
         {                                   // так как действия при ловле данных исключений одни и те же.
             System.out.println("ERROR - 1!!!");
+            log.info("ERROR - 1!!!");
+            //log.info(e.getMessage());
         }
     }
 
@@ -107,25 +90,14 @@ public class Recognition {
             keyWordArrayList = new ArrayList<String>();
             //pronunciationArrayList = new ArrayList<String>();
 
-
             streamSpeechRecognizer.startRecognition(dataInputStream);
             SpeechResult result = streamSpeechRecognizer.getResult();
-
-
-            /*----------Создание файла-------------*/
-            // Объявляется в этом месте, для того чтобы была возможность дописывать в файл
-            fileWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(posterior.getAbsoluteFile(), true), "UTF-8"));
-            fileWriter1 = new PrintWriter(new OutputStreamWriter(new FileOutputStream(node.getAbsoluteFile(), true), "UTF-8"));
-            recognitionResult = new PrintWriter(new OutputStreamWriter(new FileOutputStream(test.getAbsoluteFile(), true), "UTF-8"));
 
             if (result != null) {
                 getHypothesis(result);
                 if (result.getHypothesis().equalsIgnoreCase("")) {
-                    fileWriter.println("Please, repeat word" + "\n");
-                    recognitionResult.println("Please, repeat word" + "\n");
-                    recognitionResult.close();
-                    fileWriter.close();
-                    fileWriter1.close();
+                    log.info("Please, repeat word" + "\n");
+
                     streamSpeechRecognizer.stopRecognition();
                     return "Please, repeat word";
                 } else {
@@ -134,38 +106,28 @@ public class Recognition {
                         getConfidence(result);
                     }
 
-                    fileWriter.println(result.getHypothesis() + "\n");
-                    fileWriter.close();
-                    fileWriter1.close();
+                    log.info("Hypothesis: " + result.getHypothesis() + "\n");
                     streamSpeechRecognizer.stopRecognition();
-                    recognitionResult.println(resultOfSpeechRecognition() + "\n");
-                    recognitionResult.close();
+                    log.info("Result of speech recognition: " + resultOfSpeechRecognition() + "\n");
                     return resultOfSpeechRecognition();
                 }
             } else {
-                fileWriter.println("I couldn't hear you!");
-                recognitionResult.println("I couldn't hear you!" + "\n");
-                recognitionResult.close();
-                fileWriter.close();
-                fileWriter1.close();
+                log.info("I don't hear you!" + "\n");
                 streamSpeechRecognizer.stopRecognition();
-                return "I couldn't hear you!";
+                return "I don't hear you!";
             }
         } catch (Exception e)                 // тут ловим IllegalStateException или DataProcessingException исключения, для удобства объедили их в одно исключение
         {                                   // так как действия при ловле данных исключений одни и те же.
             System.out.println("ERROR - 1!!!");
+            log.info("ERROR - 1!!!");
             try {
                 if (dataInputStream != null)
                     dataInputStream.close();
-                if (recognitionResult != null)
-                    recognitionResult.close();
-                if (fileWriter != null)
-                    fileWriter.close();
-                if (fileWriter1 != null)
-                    fileWriter1.close();
             } catch (IOException e1) {
+                log.info(e1.getMessage());
                 e1.printStackTrace();
             }
+            log.info("Error data reading!");
             return "Error data reading!";
         }
     }
@@ -174,10 +136,10 @@ public class Recognition {
      * Печатаем 3 наиболее вероятные гипотезы в файл и выводим на консоль.
      */
     private void getHypothesis(SpeechResult result) {
-        fileWriter.println("**************************");
+        log.info("**************************");
         for (String s : result.getNbest(3)) {
             System.out.println("Hypothesis: " + s);
-            fileWriter.println("Hypothesis: " + s);
+            log.info("Hypothesis: " + s);
         }
     }
 
@@ -192,17 +154,15 @@ public class Recognition {
      */
     private void getPosterior(SpeechResult result) {
         Collection<Node> nodes = result.getLattice().getNodes();
-        fileWriter.println("----------------POSTERIOR----------------");
-        fileWriter1.println("----------------POSTERIOR----------------");
+        log.info("----------------POSTERIOR----------------");
         for (Node node : nodes) {
-            fileWriter1.println(" NODE: " + node.getWord().toString() + " LIN: " + logMath.logToLinear((float) node.getPosterior()));
             if (logMath.logToLinear((float) node.getPosterior()) > 0.001) {
-                fileWriter.println(" Word > 0.001: " + node.getWord().toString() + " LIN: " + logMath.logToLinear((float) node.getPosterior()));
+                log.info(" Word > 0.001: " + node.getWord().toString() + " LIN: " + logMath.logToLinear((float) node.getPosterior()));
             }
 
             if (node.getWord().toString().contains(getKeyWord(keyWord))) {
                 double posterior = logMath.logToLinear((float) node.getPosterior());
-                fileWriter.println(" Word-KEY: " + node.getWord().toString() + " LIN: " + posterior + " Pronunciation:" + node.getWord().getMostLikelyPronunciation().toDetailedString());
+                log.info(" Word-KEY: " + node.getWord().toString() + " LIN: " + posterior + " Pronunciation:" + node.getWord().getMostLikelyPronunciation().toDetailedString());
 
                 posteriorArrayList.add(posterior);  // хранит вероятности ключевых слов.
                 keyWordArrayList.add(node.getWord().toString());    // хранит ключевые слова, а так же слова в которых встречается keyWord.
@@ -215,13 +175,13 @@ public class Recognition {
      * Выводим на консоль и записываем в файл слово, наиболее вероятное по Sphinx-4, и его вероятность (Confidence).
      */
     private void getConfidence(SpeechResult result) {
-        fileWriter.println("----------------CONFIDENCE----------------");
+        log.info("----------------CONFIDENCE----------------");
         for (int i = 0; i < result.getWords().size(); i++) {
             System.out.println("Confidence: " + logMath.logToLinear((float) result.getWords().get(i).getConfidence())
                     + " Word: " + result.getWords().get(i).getPronunciation().getWord());  // Выводим слово, которое распознал нам Sphinx-4 и его вероятность.
 
-            fileWriter.println("Confidence: " + logMath.logToLinear((float) result.getWords().get(i).getConfidence())
-                    + " Word: " + result.getWords().get(i).getPronunciation().getWord()); // Записываем в файл.
+            log.info("Confidence: " + logMath.logToLinear((float) result.getWords().get(i).getConfidence())
+                    + " Word: " + result.getWords().get(i).getPronunciation().getWord());
         }
     }
 
@@ -283,14 +243,5 @@ public class Recognition {
             return _keyWord.substring(0, _keyWord.length() - 2);
         else
             return _keyWord;
-    }
-
-    public File createFile(String path) throws IOException {
-        File file = new File(path);
-        if (file.exists()) {
-            file.delete();
-            file.createNewFile();
-        }
-        return file;
     }
 }
