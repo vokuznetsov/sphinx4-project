@@ -1,0 +1,64 @@
+22:49:41.932  INFO [Thread-1] (Server.java:40) - -------------------------------WELCOME-------------------------------
+22:49:41.936  INFO [Thread-1] (Server.java:41) - Welcome to server side.
+22:50:25.548  INFO [Thread-1] (Server.java:48) - Speak
+22:50:28.708  INFO [Thread-1] (Recognition.java:139) - **************************
+22:50:28.712  INFO [Thread-1] (Recognition.java:142) - Hypothesis: <s> PM </s>
+22:50:28.713  INFO [Thread-1] (Recognition.java:157) - ----------------POSTERIOR----------------
+22:50:28.714  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: <sil> LIN: 0.5001934237207365
+22:50:28.714  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: [UM] LIN: 1.0
+22:50:28.714  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: </s> LIN: 1.0
+22:50:28.714  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: [UM] LIN: 1.0002000431966727
+22:50:28.715  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: PM LIN: 0.9997999968126042
+22:50:28.715  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: <s> LIN: 1.0
+22:50:28.715  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: [NOISE] LIN: 1.0
+22:50:28.715  INFO [Thread-1] (Recognition.java:178) - ----------------CONFIDENCE----------------
+22:50:28.716  INFO [Thread-1] (Recognition.java:183) - Confidence: 1.0 Word: [UM]
+22:50:28.717  INFO [Thread-1] (Recognition.java:183) - Confidence: 1.0 Word: [NOISE]
+22:50:28.718  INFO [Thread-1] (Recognition.java:183) - Confidence: 1.0 Word: [UM]
+22:50:28.719  INFO [Thread-1] (Recognition.java:183) - Confidence: 0.9997999968126042 Word: PM
+22:50:28.719  INFO [Thread-1] (Recognition.java:109) - Hypothesis: PM
+
+22:50:28.722  INFO [Thread-1] (Recognition.java:111) - Result of speech recognition: unfortunately 0.00%
+
+22:50:33.685  INFO [Thread-1] (Recognition.java:139) - **************************
+22:50:33.686  INFO [Thread-1] (Recognition.java:142) - Hypothesis: <s> PC </s>
+22:50:33.686  INFO [Thread-1] (Recognition.java:157) - ----------------POSTERIOR----------------
+22:50:33.686  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: [UM] LIN: 1.0002000431966727
+22:50:33.686  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: PC LIN: 0.9996000336264834
+22:50:33.687  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: [NOISE] LIN: 1.0
+22:50:33.687  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: <sil> LIN: 0.499393681090912
+22:50:33.687  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: [NOISE] LIN: 1.000400126410626
+22:50:33.687  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: <s> LIN: 1.0
+22:50:33.687  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: </s> LIN: 1.0
+22:50:33.688  INFO [Thread-1] (Recognition.java:178) - ----------------CONFIDENCE----------------
+22:50:33.688  INFO [Thread-1] (Recognition.java:183) - Confidence: 1.0 Word: [UM]
+22:50:33.688  INFO [Thread-1] (Recognition.java:183) - Confidence: 1.0 Word: [NOISE]
+22:50:33.689  INFO [Thread-1] (Recognition.java:183) - Confidence: 1.0 Word: [NOISE]
+22:50:33.689  INFO [Thread-1] (Recognition.java:183) - Confidence: 0.9996000336264834 Word: PC
+22:50:33.689  INFO [Thread-1] (Recognition.java:109) - Hypothesis: PC
+
+22:50:33.693  INFO [Thread-1] (Recognition.java:111) - Result of speech recognition: unfortunately 0.00%
+
+22:50:40.158  INFO [Thread-1] (Recognition.java:139) - **************************
+22:50:40.159  INFO [Thread-1] (Recognition.java:142) - Hypothesis: <s> TV </s>
+22:50:40.159  INFO [Thread-1] (Recognition.java:157) - ----------------POSTERIOR----------------
+22:50:40.160  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: </s> LIN: 1.0
+22:50:40.160  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: <s> LIN: 0.9984010940886235
+22:50:40.160  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: [UM] LIN: 0.9982014107020322
+22:50:40.160  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: <sil> LIN: 0.499393681090912
+22:50:40.161  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: TV LIN: 0.9996000336264834
+22:50:40.161  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: [NOISE] LIN: 0.9992002272260668
+22:50:40.161  INFO [Thread-1] (Recognition.java:160) -  Word > 0.001: [UM] LIN: 0.9992002272260668
+22:50:40.161  INFO [Thread-1] (Recognition.java:178) - ----------------CONFIDENCE----------------
+22:50:40.162  INFO [Thread-1] (Recognition.java:183) - Confidence: 0.9982014107020322 Word: [UM]
+22:50:40.162  INFO [Thread-1] (Recognition.java:183) - Confidence: 0.9992002272260668 Word: [NOISE]
+22:50:40.162  INFO [Thread-1] (Recognition.java:183) - Confidence: 0.9992002272260668 Word: [UM]
+22:50:40.163  INFO [Thread-1] (Recognition.java:183) - Confidence: 0.9996000336264834 Word: TV
+22:50:40.163  INFO [Thread-1] (Recognition.java:109) - Hypothesis: TV
+
+22:50:40.167  INFO [Thread-1] (Recognition.java:111) - Result of speech recognition: unfortunately 0.00%
+
+22:50:44.119  INFO [Thread-1] (Recognition.java:115) - I don't hear you!
+
+22:50:44.122  INFO [Thread-1] (Server.java:40) - -------------------------------WELCOME-------------------------------
+22:50:44.123  INFO [Thread-1] (Server.java:41) - Welcome to server side.

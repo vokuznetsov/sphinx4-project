@@ -36,8 +36,8 @@ public class Recognition {
 
         Configuration configuration = new Configuration();
         configuration.setAcousticModelPath("resource:/models/en-us/acoustic/8khz-5.1");
-        configuration.setDictionaryPath("resource:/models/en-us/language model and dictionary/new/2/0467.dic");
-        configuration.setLanguageModelPath("resource:/models/en-us/language model and dictionary/new/2/popular_words_result.lm.dmp");
+        configuration.setDictionaryPath("resource:/models/en-us/language model and dictionary/0467.dic");
+        configuration.setLanguageModelPath("resource:/models/en-us/language model and dictionary/popular_words_result.lm.dmp");
 
         //pronunciationArrayList = new ArrayList<String>();
         posteriorArrayList = new ArrayList<Double>();
