@@ -20,13 +20,6 @@ public class Server implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        try {
-        //recognition =  new Recognition();
-//            serverSocket = new ServerSocket(port);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     /**

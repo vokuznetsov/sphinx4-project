@@ -7,11 +7,5 @@ public class SpeechRecognition
         server = new Server();
         Thread thread = new Thread(server);
         thread.start();
-//        try {
-//            Recognition recognition = new Recognition();
-//            recognition.FileRecognize("extra");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 }

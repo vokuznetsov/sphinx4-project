@@ -7,14 +7,16 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>server</artifactId>
 
    <dependencies>
        <dependency>
            <groupId>edu.cmu.sphinx</groupId>
            <artifactId>sphinx4-core</artifactId>
-           <version>5prealpha-SNAPSHOT</version>
+       </dependency>
+       <dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-log4j12</artifactId>
        </dependency>
     </dependencies>
 
