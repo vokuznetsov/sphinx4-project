@@ -42,6 +42,11 @@
                 <artifactId>sphinx4-core</artifactId>
                 <version>${sphinx4.version}</version>
             </dependency>
+            <dependency>
+                <groupId>edu.cmu.sphinx</groupId>
+                <artifactId>sphinx4-data</artifactId>
+                <version>${sphinx4.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
