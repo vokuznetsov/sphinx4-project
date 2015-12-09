@@ -9,7 +9,8 @@ public class Main {
 
         String source = "parser/src/main/resources/0467.dic.txt";
         String output = "parser/src/main/resources/0467.phonemes.dic";
-        Parser parser = new Parser(source,output);
+        String words = "parser/src/main/resources/words.txt";
+        Parser parser = new Parser(source,output, words);
         try {
             parser.parser();
         } catch (IOException e) {
