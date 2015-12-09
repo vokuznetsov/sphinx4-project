@@ -7,10 +7,9 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args){
 
-        String source = "parser/src/main/resources/0467.dic.txt";
-        String output = "parser/src/main/resources/0467.phonemes.dic";
-        String words = "parser/src/main/resources/words.txt";
-        Parser parser = new Parser(source,output, words);
+        String source = "parser/src/main/resources/1555.dic";
+        String output = "parser/src/main/resources/1555.phonemes.dic";
+        Parser parser = new Parser(source,output);
         try {
             parser.parser();
         } catch (IOException e) {

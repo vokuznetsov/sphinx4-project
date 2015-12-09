@@ -9,14 +9,12 @@ public class Parser {
 
     private String pathToFile;
     private String outputForFile;
-    private String listOfWords;
     private BufferedReader in;
     private PrintWriter out;
 
-    public Parser(String source, String output, String words) {
+    public Parser(String source, String output) {
         this.pathToFile = source;
         this.outputForFile = output;
-        this.listOfWords = words;
     }
 
     public String getSource() {
@@ -43,10 +41,7 @@ public class Parser {
 
         File source = openFile(pathToFile);
         File output = createFile(outputForFile);
-        File wordsForLanguageModel = createFile(listOfWords);
-
         Set<String> transcription = new TreeSet<String>();   // TreeSet, because I need to store only unique transcription.
-        Set<String> words = new TreeSet<String>();
 
         // exclude whole word
         in = new BufferedReader(new FileReader(source));
@@ -54,8 +49,6 @@ public class Parser {
         while ((str = in.readLine()) != null) {
             if (str.contains(" ")) {
                 String phonemes = str.substring(str.indexOf(" ") + 1, str.length()); // +1 because exclude space after whole word.
-                String word = str.substring(0,str.indexOf(" "));
-                words.add("<s> " + word + " </s>");
                 for (String phoneme : phonemes.split(" "))
                     transcription.add(phoneme);
             }
@@ -65,14 +58,6 @@ public class Parser {
         out = new PrintWriter(output.getAbsoluteFile());
         for (String aTranscription : transcription) {
             out.println(aTranscription);
-        }
-
-        out.flush();
-        out.close();
-
-        out = new PrintWriter(wordsForLanguageModel.getAbsoluteFile());
-        for (String word : words) {
-            out.println(word);
         }
 
         in.close();

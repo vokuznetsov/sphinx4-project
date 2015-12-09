@@ -35,12 +35,14 @@ public class Recognition {
     public Recognition() throws IOException {
 
         Configuration configuration = new Configuration();
-        configuration.setAcousticModelPath("resource:/models/en-us/acoustic/8khz-5.1");
+
+        // configuration from my files
         configuration.setDictionaryPath("resource:/models/en-us/language model and dictionary/1555.dic");
         configuration.setLanguageModelPath("resource:/models/en-us/language model and dictionary/1555.lm");
+        //configuration.setAcousticModelPath("resource:/models/en-us/acoustic/8khz-5.1");
 
-
-        //configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
+        // configuration from dependency *sphinx4-data*
+        configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
         //configuration.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
         //configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
 
@@ -51,7 +53,7 @@ public class Recognition {
         streamSpeechRecognizer = new StreamSpeechRecognizer(configuration);
     }
 
-    public void FileRecognize(String _keyWord) {
+    public void fileRecognize(String _keyWord) {
         try {
             keyWord = _keyWord;
             posteriorArrayList = new ArrayList<Double>();
@@ -83,12 +85,16 @@ public class Recognition {
         }
     }
 
+    public void speechAligner() {
+        
+    }
+
     /**
      * В качестве параметра принимаем входной поток (DataInputStream) и распознаем его.
      * Производим запись в файл и вывод на консоль наиболее важной информации
      * ( функции getHypothesis(), getPosterior(), getConfidence() ).
      */
-    public String Recognize(DataInputStream dataInputStream, String _keyWord) {
+    public String recognize(DataInputStream dataInputStream, String _keyWord) {
         try {
             keyWord = _keyWord.toLowerCase();
             posteriorArrayList = new ArrayList<Double>();

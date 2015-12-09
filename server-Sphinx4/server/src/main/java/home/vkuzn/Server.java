@@ -49,7 +49,7 @@ public class Server implements Runnable {
 
                 while (!socket.isClosed()) {
                     dataReader = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-                    resultText = recognition.Recognize(dataReader, keyWord);
+                    resultText = recognition.recognize(dataReader, keyWord);
                     System.out.println(resultText);
 
                     out.println(resultText);
