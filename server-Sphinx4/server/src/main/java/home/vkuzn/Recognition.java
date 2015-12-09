@@ -35,14 +35,14 @@ public class Recognition {
     public Recognition() throws IOException {
 
         Configuration configuration = new Configuration();
-        //configuration.setAcousticModelPath("resource:/models/en-us/acoustic/8khz-5.1");
-        //configuration.setDictionaryPath("resource:/models/en-us/language model and dictionary/0467.dic");
-        //configuration.setLanguageModelPath("resource:/models/en-us/language model and dictionary/popular_words_result.lm.dmp");
+        configuration.setAcousticModelPath("resource:/models/en-us/acoustic/8khz-5.1");
+        configuration.setDictionaryPath("resource:/models/en-us/language model and dictionary/1555.dic");
+        configuration.setLanguageModelPath("resource:/models/en-us/language model and dictionary/1555.lm");
 
 
-        configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
-        configuration.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
-        configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
+        //configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
+        //configuration.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
+        //configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
 
         //pronunciationArrayList = new ArrayList<String>();
         posteriorArrayList = new ArrayList<Double>();
@@ -90,7 +90,7 @@ public class Recognition {
      */
     public String Recognize(DataInputStream dataInputStream, String _keyWord) {
         try {
-            keyWord = _keyWord;
+            keyWord = _keyWord.toLowerCase();
             posteriorArrayList = new ArrayList<Double>();
             keyWordArrayList = new ArrayList<String>();
             //pronunciationArrayList = new ArrayList<String>();
@@ -165,7 +165,7 @@ public class Recognition {
                 log.info(" Word > 0.001: " + node.getWord().toString() + " LIN: " + logMath.logToLinear((float) node.getPosterior()));
             }
 
-            if (node.getWord().toString().contains(getKeyWord(keyWord))) {
+            if (node.getWord().toString().toLowerCase().contains(getKeyWord(keyWord))) {
                 double posterior = logMath.logToLinear((float) node.getPosterior());
                 log.info(" Word-KEY: " + node.getWord().toString() + " LIN: " + posterior + " Pronunciation:" + node.getWord().getMostLikelyPronunciation().toDetailedString());
 
@@ -229,7 +229,7 @@ public class Recognition {
             String result = String.format(" %.3f", probability);
 
             //return word + " " + result + "%" + " pronunciation: " + pronunciationArrayList.get(indexOfRecognitionWord);
-            return word + " " + result + "%";
+            return word.toLowerCase() + " " + result.toLowerCase() + "%";
         } else
             return keyWord + " 0.00%";
     }
