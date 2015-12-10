@@ -10,6 +10,7 @@
     <modules>
         <module>server</module>
         <module>parser</module>
+        <module>aligner</module>
     </modules>
 
     <repositories>
@@ -49,5 +50,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>
