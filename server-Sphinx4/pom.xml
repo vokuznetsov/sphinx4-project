@@ -11,7 +11,6 @@
         <module>server</module>
         <module>parser</module>
         <module>aligner</module>
-        <module>proba</module>
     </modules>
 
     <repositories>
