@@ -42,6 +42,10 @@ public class Aligner {
             for (WordResult wr : results) {
                 stringResults.add("\n" + wr.toString());
                 System.out.println(wr.toString());
+
+                int str = wr.getPronunciation().getUnits()[0].getBaseID();
+                System.out.println("Context: " + str);
+
             }
 
             int amountPhonemes = listOfTranscriptions.get(0).length() - listOfTranscriptions.get(0).replace(" ", "").length() + 1;

@@ -378,3 +378,57 @@ Audio Track : thursday_female_10.wav.wav
 Amount of phonemes: 3 from 5
 ************************************
 
+17:46:16.981  INFO [main] (Aligner.java:53) - 
+Audio Track : thursday_female_10.wav.wav
+[
+{er, 1.000, [2140:2360]}, 
+{z, 1.000, [2360:2510]}, 
+{d, 1.000, [2540:2980]}]
+Amount of phonemes: 3 from 5
+************************************
+
+17:46:20.758  INFO [main] (?:?) - 
+Audio Track : thursday_female_10.wav.wav
+[
+{er, 1.000, [2140:2360]}, 
+{z, 1.000, [2360:2510]}, 
+{d, 1.000, [2540:2980]}]
+Amount of phonemes: 3 from 5
+************************************
+
+17:46:28.389  INFO [main] (Aligner.java:53) - 
+Audio Track : thursday_female_10.wav.wav
+[
+{er, 1.000, [2140:2360]}, 
+{z, 1.000, [2360:2510]}, 
+{d, 1.000, [2540:2980]}]
+Amount of phonemes: 3 from 5
+************************************
+
+17:47:15.975  INFO [main] (Aligner.java:53) - 
+Audio Track : thursday_female_10.wav.wav
+[
+{er, 1.000, [2140:2360]}, 
+{z, 1.000, [2360:2510]}, 
+{d, 1.000, [2540:2980]}]
+Amount of phonemes: 3 from 5
+************************************
+
+17:48:20.132  INFO [main] (Aligner.java:53) - 
+Audio Track : thursday_female_10.wav.wav
+[
+{er, 1.000, [2140:2360]}, 
+{z, 1.000, [2360:2510]}, 
+{d, 1.000, [2540:2980]}]
+Amount of phonemes: 3 from 5
+************************************
+
+16:06:37.796  INFO [main] (Aligner.java:53) - 
+Audio Track : thursday_female_10.wav.wav
+[
+{er, 1.000, [2140:2360]}, 
+{z, 1.000, [2360:2510]}, 
+{d, 1.000, [2540:2980]}]
+Amount of phonemes: 3 from 5
+************************************
+
