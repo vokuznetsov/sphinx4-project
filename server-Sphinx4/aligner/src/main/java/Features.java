@@ -4,7 +4,6 @@ import edu.cmu.sphinx.tools.feature.FeatureFileDumper;
  * @author vkuzn on 14.02.2016.
  */
 public class Features {
-    //private String config = "C:\\Users\\Vladimir\\Documents\\IdeaProjects\\Git\\sphinx4-project\\server-Sphinx4\\aligner\\src\\main\\resources\\config.txt";
     private String audioTrack;
     private String inputAudioTrack;
     private String outputFile;

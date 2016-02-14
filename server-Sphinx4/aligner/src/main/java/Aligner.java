@@ -20,15 +20,16 @@ public class Aligner {
     //private static final String acousticModel = "resource:/models/en-us/acoustic/8khz-5.1";
     //private static final String dictionaryPath = "resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict";
     private static final String dictionaryPath = "resource:/models/en-us/language model and dictionary/phonemes3.dic";
-    private static final String audioTrack = "thursday_female_10.wav.wav";
+    //private static final String audioTrack = "development_male_1.wav.wav";
+    private String audioTrack;
 
     private String keyWords;
     private SpeechAligner speechAligner;
     private URL audio;
 
-    public Aligner(String keyWords) throws IOException {
-
+    public Aligner(String keyWords, String audioTrack) throws IOException {
         this.keyWords = keyWords;
+        this.audioTrack = audioTrack;
         speechAligner = new SpeechAligner(acousticModel, dictionaryPath, null);
         audio = this.getClass().getClassLoader().getResource("test/16kHz_16bit_native/" + keyWords + "/" + audioTrack);
     }
@@ -43,17 +44,17 @@ public class Aligner {
                 stringResults.add("\n" + wr.toString());
                 System.out.println(wr.toString());
 
-                int str = wr.getPronunciation().getUnits()[0].getBaseID();
-                System.out.println("Context: " + str);
+//                int str = wr.getPronunciation().getUnits()[0].getBaseID();
+//                System.out.println("Context: " + str);
 
             }
-
             int amountPhonemes = listOfTranscriptions.get(0).length() - listOfTranscriptions.get(0).replace(" ", "").length() + 1;
 
             log.info("\n" + "Audio Track : " + audioTrack + "\n"
                     + stringResults.toString() + "\n"
                     + "Amount of phonemes: " + stringResults.size()
-                    + " from " + amountPhonemes
+                    + " from " + amountPhonemes + "\n"
+                    + "Phonemes: " + listOfTranscriptions.get(0).toLowerCase()
                     + "\n" + "************************************" + "\n");
         } else {
             log.info("This word is not contained in dictionary" + "\n"

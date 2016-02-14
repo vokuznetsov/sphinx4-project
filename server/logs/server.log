@@ -441,3 +441,81 @@ Audio Track : thursday_female_10.wav.wav
 Amount of phonemes: 3 from 5
 ************************************
 
+01:21:47.826  INFO [main] (Aligner.java:53) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+************************************
+
+01:24:48.342  INFO [main] (Aligner.java:54) - 
+Audio Track : colored_female_4.wav.wav
+[
+{l, 1.000, [890:960]}, 
+{er, 1.000, [970:1090]}, 
+{d, 1.000, [1100:1210]}]
+Amount of phonemes: 3 from 5
+************************************
+
+01:25:24.783  INFO [main] (Aligner.java:54) - 
+Audio Track : colored_female_8.wav.wav
+[
+{ah, 1.000, [1110:1180]}, 
+{l, 1.000, [1190:1270]}, 
+{er, 1.000, [1280:1420]}, 
+{d, 1.000, [1430:1520]}]
+Amount of phonemes: 4 from 5
+************************************
+
+01:28:01.322  INFO [main] (Aligner.java:54) - 
+Audio Track : colored_female_8.wav.wav
+[
+{ah, 1.000, [1110:1180]}, 
+{l, 1.000, [1190:1270]}, 
+{er, 1.000, [1280:1420]}, 
+{d, 1.000, [1430:1520]}]
+Amount of phonemes: 4 from 5
+Phonemes: K AH L ER D
+************************************
+
+01:28:45.360  INFO [main] (Aligner.java:53) - 
+Audio Track : colored_female_8.wav.wav
+[
+{ah, 1.000, [1110:1180]}, 
+{l, 1.000, [1190:1270]}, 
+{er, 1.000, [1280:1420]}, 
+{d, 1.000, [1430:1520]}]
+Amount of phonemes: 4 from 5
+Phonemes: K AH L ER D
+************************************
+
+01:29:33.854  INFO [main] (Aligner.java:53) - 
+Audio Track : colored_female_8.wav.wav
+[
+{ah, 1.000, [1110:1180]}, 
+{l, 1.000, [1190:1270]}, 
+{er, 1.000, [1280:1420]}, 
+{d, 1.000, [1430:1520]}]
+Amount of phonemes: 4 from 5
+Phonemes: k ah l er d
+************************************
+
+01:29:54.170  INFO [main] (Aligner.java:53) - 
+Audio Track : colored_female_3.wav.wav
+[
+{l, 1.000, [1470:1500]}, 
+{er, 1.000, [1510:1600]}, 
+{d, 1.000, [1610:1820]}]
+Amount of phonemes: 3 from 5
+Phonemes: k ah l er d
+************************************
+
