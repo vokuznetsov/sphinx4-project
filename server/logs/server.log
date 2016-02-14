@@ -432,3 +432,12 @@ Audio Track : thursday_female_10.wav.wav
 Amount of phonemes: 3 from 5
 ************************************
 
+17:48:45.879  INFO [main] (Aligner.java:53) - 
+Audio Track : thursday_female_10.wav.wav
+[
+{er, 1.000, [2140:2360]}, 
+{z, 1.000, [2360:2510]}, 
+{d, 1.000, [2540:2980]}]
+Amount of phonemes: 3 from 5
+************************************
+
