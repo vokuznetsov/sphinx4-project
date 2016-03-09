@@ -519,3 +519,104 @@ Amount of phonemes: 3 from 5
 Phonemes: k ah l er d
 ************************************
 
+17:36:35.415  INFO [main] (Aligner.java:53) - 
+Audio Track : colored_female_3.wav.wav
+[
+{l, 1.000, [1470:1500]}, 
+{er, 1.000, [1510:1600]}, 
+{d, 1.000, [1610:1820]}]
+Amount of phonemes: 3 from 5
+Phonemes: k ah l er d
+************************************
+
+17:39:03.010  INFO [main] (Aligner.java:53) - 
+Audio Track : colored_female_3.wav.wav
+[
+{l, 1.000, [1470:1500]}, 
+{er, 1.000, [1510:1600]}, 
+{d, 1.000, [1610:1820]}]
+Amount of phonemes: 3 from 5
+Phonemes: k ah l er d
+************************************
+
+17:39:40.891  INFO [main] (Aligner.java:53) - 
+Audio Track : colored_female_3.wav.wav
+[
+{l, 1.000, [1470:1500]}, 
+{er, 1.000, [1510:1600]}, 
+{d, 1.000, [1610:1820]}]
+Amount of phonemes: 3 from 5
+Phonemes: k ah l er d
+************************************
+
+17:41:55.962  INFO [main] (Aligner.java:53) - 
+Audio Track : colored_female_3.wav.wav
+[
+{l, 1.000, [1470:1500]}, 
+{er, 1.000, [1510:1600]}, 
+{d, 1.000, [1610:1820]}]
+Amount of phonemes: 3 from 5
+Phonemes: k ah l er d
+************************************
+
+17:53:05.654  INFO [main] (Aligner.java:53) - 
+Audio Track : development_female_3.wav.wav
+[
+{ih, 1.000, [2000:2040]}, 
+{v, 1.000, [2050:2110]}, 
+{eh, 1.000, [2120:2220]}, 
+{l, 1.000, [2230:2280]}, 
+{ah, 1.000, [2290:2350]}, 
+{n, 1.000, [2570:2610]}, 
+{t, 1.000, [2620:2730]}]
+Amount of phonemes: 7 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+17:55:20.521  INFO [main] (Aligner.java:53) - 
+Audio Track : box_male_7.wav.wav
+[
+{s, 1.000, [380:600]}]
+Amount of phonemes: 1 from 7
+Phonemes: b uh m b aa k s
+************************************
+
+18:05:08.049  INFO [main] (Aligner.java:60) - This word is not contained in dictionary
+************************************
+
+18:08:33.316  INFO [main] (Aligner.java:60) - This word is not contained in dictionary
+************************************
+
+18:25:23.780  INFO [main] (Aligner.java:53) - 
+Audio Track : box_male_7.wav.wav
+[
+{s, 1.000, [380:600]}]
+Amount of phonemes: 1 from 4
+Phonemes: b aa k s
+************************************
+
+18:26:46.709  INFO [main] (Aligner.java:53) - 
+Audio Track : box_male_2.wav.wav
+[
+{aa, 1.000, [1140:1270]}]
+Amount of phonemes: 1 from 4
+Phonemes: b aa k s
+************************************
+
+18:27:33.514  INFO [main] (Aligner.java:53) - 
+Audio Track : box_male_3.wav.wav
+[
+{aa, 1.000, [650:760]}, 
+{s, 1.000, [910:1110]}]
+Amount of phonemes: 2 from 4
+Phonemes: b aa k s
+************************************
+
+18:28:02.083  INFO [main] (Aligner.java:53) - 
+Audio Track : box_male_4.wav.wav
+[
+{s, 1.000, [1210:1350]}]
+Amount of phonemes: 1 from 4
+Phonemes: b aa k s
+************************************
+

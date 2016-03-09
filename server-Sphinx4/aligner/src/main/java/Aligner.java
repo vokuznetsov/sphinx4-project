@@ -76,7 +76,8 @@ public class Aligner {
         String str;
         String transcription;
         while ((str = in.readLine()) != null) {
-            if (str.toLowerCase().contains(keyWords)) {
+            String substring = str.substring(0,str.indexOf(" "));
+            if (substring.toLowerCase().equals(keyWords)) {
                 transcription = str.substring(str.indexOf(" ") + 1, str.length());
                 listOfTranscriptions.add(transcription);
             }
