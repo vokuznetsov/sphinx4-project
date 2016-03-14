@@ -11,7 +11,7 @@ public class Features {
     public Features(String audioTrack, String inputAudioTrack){
         this.audioTrack = audioTrack;
         this.inputAudioTrack = inputAudioTrack;
-        outputFile = "C:\\Users\\Vladimir\\Documents\\IdeaProjects\\Git\\sphinx4-project\\" +
+        outputFile = "C:\\Users\\vkuzn\\IdeaProjects\\CourseWork\\sphinx4-project\\" +
                 "server-Sphinx4\\extraction\\features\\" + "features_"
                 + audioTrack.substring(0,audioTrack.length()-7)+"txt";
     }

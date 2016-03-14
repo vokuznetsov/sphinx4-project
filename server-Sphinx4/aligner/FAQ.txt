@@ -1,0 +1,25 @@
+1. How to convert binary files to text files from acoustic model?
+Download sphinx_train and launch the following command: printp.exe -*param* *file*.
+
+param			file
+-gaufn			means
+-gaufn			variances
+-mixwfn			mixture_weights
+-tmatfn 		transition_matrices
+
+https://sourceforge.net/p/cmusphinx/discussion/help/thread/1f9fdb0f/
+https://sourceforge.net/p/cmusphinx/discussion/sphinx4/thread/73bb9606/?limit=25#d201/5f3e/2f35
+
+Ex. printp.exe -gaufn variances > variances.txt
+
+2. How to extact mfcc features from .wav file?
+https://sourceforge.net/p/cmusphinx/discussion/sphinx4/thread/d5c1101e/
+
+
+3. Признаки для каждого сегмента файла.
+C:\..\sphinxbase\bin\Release\x64>sphinx_fe.exe -argfile en-us\en-us\feat.params -samprate 16000 -c en-us\box.fileids -di . -do . -ei wav -eo mfc -mswav yes
+
+To see in text view:
+C:\..\sphinxbase\bin\Release\x64>>sphinx_cepview.exe -d 13 -f en-us\box_male_4.wav.mfc
+
+http://cmusphinx.sourceforge.net/wiki/tutorialadapt
