@@ -13,10 +13,14 @@ https://sourceforge.net/p/cmusphinx/discussion/sphinx4/thread/73bb9606/?limit=25
 Ex. printp.exe -gaufn variances > variances.txt
 
 2. How to extact mfcc features from .wav file?
+java -jar sphinx4-core-5prealpha-SNAPSHOT.jar edu.cmu.sphinx.tools.feature.FeatureFileDumper -name cepstraFrontEnd -i development_female_2.wav.wav -o feature.txt -format ascii
+
+для sphinx4-core-5prealpha-SNAPSHOT.jar необходимо создать манифест файл и указанть в нем функцию main, которую надо будет запускать. В нашем случаее - это FeatureFileDumper.
+Данный класс (FeatureFileDumper) извлечет mfcc features для каждого 10 мс отрывка аудио файла.
+
 https://sourceforge.net/p/cmusphinx/discussion/sphinx4/thread/d5c1101e/
 
-
-3. Признаки для каждого сегмента файла.
+3. Признаки для каждого сегмента файла (другое предствален, чем то что описано в п.2).
 C:\..\sphinxbase\bin\Release\x64>sphinx_fe.exe -argfile en-us\en-us\feat.params -samprate 16000 -c en-us\box.fileids -di . -do . -ei wav -eo mfc -mswav yes
 
 To see in text view:
