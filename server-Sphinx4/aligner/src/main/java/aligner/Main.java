@@ -2,6 +2,8 @@ package aligner;
 
 import good.of.pronunciation.FullMFCCfeatures;
 import good.of.pronunciation.GetFirstMFCCfeatures;
+import good.of.pronunciation.MDEF;
+import good.of.pronunciation.ReadMDEF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,13 +30,25 @@ public class Main {
             e.printStackTrace();
         }
 
-        GetFirstMFCCfeatures features = new GetFirstMFCCfeatures(audioTrack, keyWord);
-        features.extactFeatures();
 
-        Map<Integer, List<Float>> firstFrames = features.readMFCCfile();
+        // ---------------------------- MFCC FEATURES ----------------------------
+//        GetFirstMFCCfeatures features = new GetFirstMFCCfeatures(audioTrack, keyWord);
+//        features.extactFeatures();
+//
+//        Map<Integer, List<Float>> firstFrames = features.readMFCCfile();
+//
+//        FullMFCCfeatures fullMFCCfeatures = new FullMFCCfeatures(firstFrames);
+//        fullMFCCfeatures.getFullMFCCfeatures();
 
-        FullMFCCfeatures fullMFCCfeatures = new FullMFCCfeatures(firstFrames);
-        fullMFCCfeatures.getFullMFCCfeatures();
+        // ---------------------------- READ MDEF ----------------------------
+
+        ReadMDEF readMDEF = new ReadMDEF();
+        try {
+            MDEF mdef = readMDEF.readMDEF();
+            log.info("Test mdef");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
