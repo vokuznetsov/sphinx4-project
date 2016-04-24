@@ -69,27 +69,27 @@ public class GetFirstMFCCfeatures {
         this.inputAudioTrack = inputAudioTrack;
     }
 
-    public Map<Integer, List<Float>> readMFCCfile() {
+    public Map<Integer, List<Double>> readMFCCfile() {
 
         try (BufferedReader br = new BufferedReader(new FileReader(outputFile))) {
 
             String sCurrentLine;
-            Map<Integer, List<Float>> frames = new HashMap<>();
+            Map<Integer, List<Double>> frames = new HashMap<>();
 
             if ((sCurrentLine = br.readLine()) != null) {
                 String[] values = sCurrentLine.substring(sCurrentLine.indexOf(" ") + 1, sCurrentLine.length()).split(" ");
 
-                List<Float> var = new ArrayList<>();
+                List<Double> var = new ArrayList<>();
                 int count = 0;
 
                 for (int i = 0; i < values.length; i++) {
                     if ((i + 1) % 13 == 0) {
-                        var.add(Float.valueOf(values[i]));
+                        var.add(Double.valueOf(values[i]));
                         frames.put(count, new ArrayList<>(var));
                         count++;
                         var.clear();
                     } else {
-                        var.add(Float.valueOf(values[i]));
+                        var.add(Double.valueOf(values[i]));
                     }
                 }
 

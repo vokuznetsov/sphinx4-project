@@ -1,15 +1,17 @@
 package aligner;
 
-import good.of.pronunciation.FullMFCCfeatures;
-import good.of.pronunciation.GetFirstMFCCfeatures;
-import good.of.pronunciation.MDEF;
-import good.of.pronunciation.ReadMDEF;
+import edu.cmu.sphinx.result.WordResult;
+import edu.cmu.sphinx.util.TimeFrame;
+import good.of.pronunciation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author vkuzn on 10.12.2015.
@@ -20,36 +22,54 @@ public class Main {
     private static String keyWord = "development";
     //private static final String TEXT = "one zero zero zero one nine oh two one oh zero one eight zero three";
 
-    //aligner.Features
+    private static Map<TimeFrame, Map<Integer, List<Double>>> mfccFeaturesForPhonemes;
+
     private static String audioTrack = "development_male_1.wav.wav";
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
+        List<WordResult> wordResults = new ArrayList<>();
+        mfccFeaturesForPhonemes = new HashMap<>();
         try {
             Aligner aligner = new Aligner(keyWord, audioTrack);
-            aligner.aligner();
+            wordResults = aligner.aligner();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+         //---------------------------- MFCC FEATURES ----------------------------
+        GetFirstMFCCfeatures features = new GetFirstMFCCfeatures(audioTrack, keyWord);
+        features.extactFeatures();
 
-        // ---------------------------- MFCC FEATURES ----------------------------
-//        GetFirstMFCCfeatures features = new GetFirstMFCCfeatures(audioTrack, keyWord);
-//        features.extactFeatures();
-//
-//        Map<Integer, List<Float>> firstFrames = features.readMFCCfile();
-//
-//        FullMFCCfeatures fullMFCCfeatures = new FullMFCCfeatures(firstFrames);
-//        fullMFCCfeatures.getFullMFCCfeatures();
+        Map<Integer, List<Double>> firstFrames = features.readMFCCfile();
+
+        FullMFCCfeatures fullMFCCfeatures = new FullMFCCfeatures(firstFrames);
+        Map<Integer, List<Double>> frames = fullMFCCfeatures.getFullMFCCfeatures();
+        log.info("frames");
+
+        // ---------------------------- ACOUSTIC SEGMENT (O(p)) ----------------------------
+        AcousticSegment acousticSegment = new AcousticSegment(frames);
+        mfccFeaturesForPhonemes = wordResults.stream().collect(Collectors.toMap
+                (WordResult::getTimeFrame, acousticSegment::getAcousticSegment));
+
 
         // ---------------------------- READ MDEF ----------------------------
-
         ReadMDEF readMDEF = new ReadMDEF();
         try {
             MDEF mdef = readMDEF.readMDEF();
+            String phoneme = wordResults.get(0).getWord().getSpelling().toUpperCase();
+            //String d = mdef.getBase().values().stream().filter(phoneme::equals).findFirst().get();
+            //String str = mdef.getBase().get(phoneme.toUpperCase());
             log.info("Test mdef");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        ReadMeans readMeans = new ReadMeans();
+        try {
+            readMeans.getMeans();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

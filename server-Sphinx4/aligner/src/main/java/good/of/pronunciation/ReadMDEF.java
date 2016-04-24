@@ -22,7 +22,7 @@ public class ReadMDEF {
         BufferedReader in = new BufferedReader(new InputStreamReader(openFile(file)));
 
         // skip first 12 string in mdef file, because they are unnecessary for us.
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 10; i++) {
             in.readLine();
         }
 

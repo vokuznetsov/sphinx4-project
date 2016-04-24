@@ -34,7 +34,7 @@ public class Aligner {
         audio = this.getClass().getClassLoader().getResource("audio/16kHz_16bit_native/" + keyWords + "/" + audioTrack);
     }
 
-    public void aligner() throws IOException {
+    public List<WordResult>  aligner() throws IOException {
         List<String> listOfTranscriptions = getTranscriptions();
         if (!listOfTranscriptions.isEmpty()) {
             List<WordResult> results = speechAligner.align(audio, listOfTranscriptions.get(0));         // 0  is temporary,  further I remake the logic of it
@@ -43,9 +43,8 @@ public class Aligner {
             List<String> stringResults = new ArrayList<String>();
             for (WordResult wr : results) {
                 stringResults.add("\n" + wr.toString());
-                System.out.println(wr.toString());
-
             }
+
             int amountPhonemes = listOfTranscriptions.get(0).length() - listOfTranscriptions.get(0).replace(" ", "").length() + 1;
 
             log.info("\n" + "Audio Track : " + audioTrack + "\n"
@@ -54,9 +53,11 @@ public class Aligner {
                     + " from " + amountPhonemes + "\n"
                     + "Phonemes: " + listOfTranscriptions.get(0).toLowerCase()
                     + "\n" + "************************************" + "\n");
+            return results;
         } else {
             log.info("This word is not contained in dictionary" + "\n"
                     + "************************************" + "\n");
+            return null;
         }
     }
 
