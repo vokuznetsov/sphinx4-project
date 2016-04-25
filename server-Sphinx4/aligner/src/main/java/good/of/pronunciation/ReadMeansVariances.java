@@ -12,43 +12,59 @@ import java.util.Map;
 /**
  * @author vkuzn on 24.04.2016.
  */
-public class ReadMeans {
+public class ReadMeansVariances {
 
-    private static final Logger log = LoggerFactory.getLogger(ReadMeans.class);
-    private Map<Integer, Map<Integer, List<Double>>> means;
+    private static final Logger log = LoggerFactory.getLogger(ReadMeansVariances.class);
+    private final String means = "/models/acoustic/16khz/means.txt";
+    private final String variances = "/models/acoustic/16khz/variances.txt";
 
-    public ReadMeans() {
-        means = new HashMap<>();
+    public ReadMeansVariances() {
     }
 
     public Map<Integer, Map<Integer, List<Double>>> getMeans() throws IOException {
-        String file = "/models/acoustic/16khz/means.txt";
-        BufferedReader in = new BufferedReader(new InputStreamReader(openFile(file)));
+        return parseFile(means);
+    }
 
+    public Map<Integer, Map<Integer, List<Double>>> getVariances() throws IOException {
+        return parseFile(variances);
+    }
+
+    /**
+     * Read file and return this file in Map view
+     *
+     * @param filename
+     * @return - parse file
+     * @throws IOException
+     */
+    private Map<Integer, Map<Integer, List<Double>>> parseFile(String filename) throws IOException {
+
+        Map<Integer, Map<Integer, List<Double>>> result = new HashMap<>();
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(openFile(filename)));
         in.readLine();      // skip first string
+
         String str;
         int letter = 0;
-        //int row = -1;
         int count = 0;
         List<Double> values = new ArrayList<>();
         Map<Integer, List<Double>> matrix = new HashMap<>();
+
         while ((str = in.readLine()) != null) {
             if (str.contains("mgau")) {
                 letter = Integer.parseInt(str.substring(5, str.length()));
                 if (letter != 0) {
-                    means.put(letter - 1, new HashMap<>(matrix));
+                    result.put(letter - 1, new HashMap<>(matrix));      // set previous phoneme to result
                     count = 0;
                     matrix.clear();
                 }
             } else if (str.contains("feat")) {
-                //r = Integer.parseInt(str.substring(5, str.length()));
             } else {
                 values.clear();
                 // replace 2 or more space with single space
                 str = str.trim().replaceAll(" +", " ");
-                int firstSpace = str.indexOf(" ");
-                int secondSpace = str.indexOf(" ", firstSpace + 1);
-                //row = Integer.parseInt(str.substring(firstSpace + 1, secondSpace));
+
+                int firstSpace = str.indexOf(" ");                          // first space is after density
+                int secondSpace = str.indexOf(" ", firstSpace + 1);         // second space is after number of row
                 str = str.substring(secondSpace + 1, str.length());
                 List<Integer> spaces = findAllCharacterInString(str, " ");
 
@@ -67,9 +83,8 @@ public class ReadMeans {
             }
         }
 
-        means.put(letter, new HashMap<>(matrix));
-
-        return means;
+        result.put(letter, new HashMap<>(matrix));      // set 42 phoneme to result
+        return result;
     }
 
 

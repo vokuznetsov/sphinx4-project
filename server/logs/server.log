@@ -1,0 +1,272 @@
+23:18:43.922  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:18:44.015  INFO [main] (Main.java:47) - frames
+23:19:05.981  INFO [main] (Main.java:70) - means
+23:19:40.931  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:19:41.005  INFO [main] (Main.java:47) - frames
+23:19:41.706  INFO [main] (Main.java:62) - Test mdef
+23:19:41.916  INFO [main] (Main.java:70) - means
+23:20:50.644  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:20:50.723  INFO [main] (Main.java:47) - frames
+23:20:51.516  INFO [main] (Main.java:62) - Test mdef
+23:21:10.381  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:21:10.462  INFO [main] (Main.java:47) - frames
+23:21:11.157  INFO [main] (Main.java:62) - Test mdef
+23:21:11.333  INFO [main] (Main.java:70) - means
+23:22:19.640  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:22:19.750  INFO [main] (Main.java:47) - frames
+23:22:20.591  INFO [main] (Main.java:62) - Test mdef
+23:24:00.964  INFO [main] (Main.java:70) - means
+23:34:31.135  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:34:31.237  INFO [main] (Main.java:47) - frames
+23:34:32.054  INFO [main] (Main.java:62) - Test mdef
+23:37:18.335  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:37:18.413  INFO [main] (Main.java:47) - frames
+23:37:19.133  INFO [main] (Main.java:62) - Test mdef
+23:38:10.516  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:38:10.591  INFO [main] (Main.java:47) - frames
+23:38:11.339  INFO [main] (Main.java:62) - Test mdef
+23:39:32.761  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:39:32.843  INFO [main] (Main.java:47) - frames
+23:39:33.545  INFO [main] (Main.java:62) - Test mdef
+23:39:46.581  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:39:46.678  INFO [main] (Main.java:47) - frames
+23:39:47.514  INFO [main] (Main.java:62) - Test mdef
+23:40:42.904  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:40:42.994  INFO [main] (Main.java:47) - frames
+23:40:43.909  INFO [main] (Main.java:62) - Test mdef
+23:41:20.316  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:41:20.393  INFO [main] (Main.java:47) - frames
+23:41:21.104  INFO [main] (Main.java:62) - Test mdef
+23:41:21.431  INFO [main] (Main.java:71) - means and variances
+23:41:41.158  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:41:41.235  INFO [main] (Main.java:47) - frames
+23:41:41.927  INFO [main] (Main.java:62) - Test mdef
+23:41:42.189  INFO [main] (Main.java:71) - means and variances
+23:41:53.714  INFO [main] (Aligner.java:50) - 
+Audio Track : development_male_1.wav.wav
+[
+{d, 1.000, [300:380]}, 
+{v, 1.000, [440:490]}, 
+{eh, 1.000, [500:590]}, 
+{l, 1.000, [600:630]}, 
+{ah, 1.000, [640:660]}, 
+{p, 1.000, [730:860]}, 
+{m, 1.000, [870:940]}, 
+{ah, 1.000, [950:970]}, 
+{n, 1.000, [980:1050]}, 
+{t, 1.000, [1060:1270]}]
+Amount of phonemes: 10 from 11
+Phonemes: d ih v eh l ah p m ah n t
+************************************
+
+23:41:53.797  INFO [main] (Main.java:47) - frames
+23:41:54.609  INFO [main] (Main.java:62) - Test mdef
+23:53:17.762  INFO [main] (Main.java:71) - means and variances
