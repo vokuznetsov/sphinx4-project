@@ -36,33 +36,33 @@ public class Main {
             e.printStackTrace();
         }
 
-         //---------------------------- MFCC FEATURES ----------------------------
-        GetFirstMFCCfeatures features = new GetFirstMFCCfeatures(audioTrack, keyWord);
-        features.extactFeatures();
-
-        Map<Integer, List<Double>> firstFrames = features.readMFCCfile();
-
-        FullMFCCfeatures fullMFCCfeatures = new FullMFCCfeatures(firstFrames);
-        Map<Integer, List<Double>> frames = fullMFCCfeatures.getFullMFCCfeatures();
-        log.info("frames");
-
-        // ---------------------------- ACOUSTIC SEGMENT (O(p)) ----------------------------
-        AcousticSegment acousticSegment = new AcousticSegment(frames);
-        mfccFeaturesForPhonemes = wordResults.stream().collect(Collectors.toMap
-                (WordResult::getTimeFrame, acousticSegment::getAcousticSegment));
+//         //---------------------------- MFCC FEATURES ----------------------------
+//        GetFirstMFCCfeatures features = new GetFirstMFCCfeatures(audioTrack, keyWord);
+//        features.extactFeatures();
+//
+//        Map<Integer, List<Double>> firstFrames = features.readMFCCfile();
+//
+//        FullMFCCfeatures fullMFCCfeatures = new FullMFCCfeatures(firstFrames);
+//        Map<Integer, List<Double>> frames = fullMFCCfeatures.getFullMFCCfeatures();
+//        log.info("frames");
+//
+//        // ---------------------------- ACOUSTIC SEGMENT (O(p)) ----------------------------
+//        AcousticSegment acousticSegment = new AcousticSegment(frames);
+//        mfccFeaturesForPhonemes = wordResults.stream().collect(Collectors.toMap
+//                (WordResult::getTimeFrame, acousticSegment::getAcousticSegment));
 
 
         // ---------------------------- READ MDEF ----------------------------
-        ReadMDEF readMDEF = new ReadMDEF();
-        try {
-            MDEF mdef = readMDEF.readMDEF();
-            String phoneme = wordResults.get(0).getWord().getSpelling().toUpperCase();
-            //String d = mdef.getBase().values().stream().filter(phoneme::equals).findFirst().get();
-            //String str = mdef.getBase().get(phoneme.toUpperCase());
-            log.info("Test mdef");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        ReadMDEF readMDEF = new ReadMDEF();
+//        try {
+//            MDEF mdef = readMDEF.readMDEF();
+//            String phoneme = wordResults.get(0).getWord().getSpelling().toUpperCase();
+//            //String d = mdef.getBase().values().stream().filter(phoneme::equals).findFirst().get();
+//            //String str = mdef.getBase().get(phoneme.toUpperCase());
+//            log.info("Test mdef");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         ReadMeans readMeans = new ReadMeans();
         try {
