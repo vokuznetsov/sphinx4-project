@@ -67,7 +67,6 @@ public class Main {
         ReadMeansVariances readMeans = new ReadMeansVariances();
         try {
             Map<Integer, Map<Integer, List<Double>>> means = readMeans.getMeans();
-            Map<Integer, Map<Integer, List<Double>>> variances = readMeans.getVariances();
             log.info("means and variances");
         } catch (IOException e) {
             e.printStackTrace();

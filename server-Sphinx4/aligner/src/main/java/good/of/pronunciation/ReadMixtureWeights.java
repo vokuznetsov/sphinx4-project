@@ -10,62 +10,44 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author vkuzn on 24.04.2016.
+ * @author vkuzn on 05.05.2016.
  */
-public class ReadMeansVariances {
+public class ReadMixtureWeights {
 
-    private static final Logger log = LoggerFactory.getLogger(ReadMeansVariances.class);
-    private final String means = "/models/acoustic/16khz/means.txt";
-    private final String variances = "/models/acoustic/16khz/variances.txt";
+    private static final Logger log = LoggerFactory.getLogger(ReadMixtureWeights.class);
+    private final String mixw = "/models/acoustic/16khz/mixture_weights.txt";
 
-    public ReadMeansVariances() {
+    public ReadMixtureWeights(){
     }
 
-    public Map<Integer, Map<Integer, List<Double>>> getMeans() throws IOException {
-        return parseFile(means);
-    }
-
-    public Map<Integer, Map<Integer, List<Double>>> getVariances() throws IOException {
-        return parseFile(variances);
-    }
-
-    /**
-     * Read file and return this file in Map view
-     *
-     * @param filename
-     * @return - parse file
-     * @throws IOException
-     */
-    private Map<Integer, Map<Integer, List<Double>>> parseFile(String filename) throws IOException {
-
+    public void parseFile() throws IOException {
         Map<Integer, Map<Integer, List<Double>>> result = new HashMap<>();
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(openFile(filename)));
+        BufferedReader in = new BufferedReader(new InputStreamReader(openFile(mixw)));
         in.readLine();      // skip first string
 
-        String str;
-        int mgau = 0;
-        int feat = 0;
-        int count = 0;
+        String str = null;
+        int numberOfPhoneme = 0; // first value in mixw[5,2]. In this case, numberOfPhoneme = 5
+        int param = 0;           // second value. In the example above, param = 2
+        int count =0;
         List<Double> values = new ArrayList<>();
         Map<Integer, List<Double>> matrix = new HashMap<>();
 
         while ((str = in.readLine()) != null) {
-            if (str.contains("mgau")) {
-                feat = 0;
-                mgau = Integer.parseInt(str.substring(5, str.length()));
-                if (mgau != 0) {
-                    result.put(mgau - 1, new HashMap<>(matrix));      // set previous phoneme to result
-                    count = 0;
-                    matrix.clear();
+            str = str.trim().replaceAll(" +", " ");
+            if (str.contains("mixw")) {
+                int openBracket = str.indexOf("[");
+                int closeBracket = str.indexOf("]");
+                int phoneme = Integer.parseInt(str.substring(openBracket+1,openBracket+2));
+                if (numberOfPhoneme != phoneme)
+                    numberOfPhoneme = phoneme;
+                else {
+                    param = Integer.parseInt(str.substring(closeBracket-1, closeBracket));
                 }
-            } else if (str.contains("feat")) {
-                feat = Integer.parseInt(str.substring(5, str.length()));
-                count = 0;
+            }
+            if (str.equals("\n")){
             } else {
                 values.clear();
-                // replace 2 or more space with single space
-                str = str.trim().replaceAll(" +", " ");
 
                 int firstSpace = str.indexOf(" ");                          // first space is after density
                 int secondSpace = str.indexOf(" ", firstSpace + 1);         // second space is after number of row
@@ -76,44 +58,31 @@ public class ReadMeansVariances {
                     if (i == 0) {
                         values.add(Double.valueOf(str.substring(i, spaces.get(i) + 1)));
                         values.add(Double.valueOf(str.substring(spaces.get(i) + 1, spaces.get(i + 1))));
+                        String sss = "";
                     } else if (i == spaces.size() - 1)
                         values.add(Double.valueOf(str.substring(spaces.get(i) + 1, str.length())));
                     else
                         values.add(Double.valueOf(str.substring(spaces.get(i) + 1, spaces.get(i + 1))));
-
                 }
-                if (feat == 0) {
+                if (param == 0) {
                     matrix.put(count, new ArrayList<>(values));
                     count++;
                 } else {
                     for (Double value:  values)
                         matrix.get(count).add(value);
-//                    matrix.get(count).stream().forEachOrdered(values::add);
+                    matrix.get(count).stream().forEachOrdered(values::add);
                     count++;
                 }
             }
         }
-
-        result.put(mgau, new HashMap<>(matrix));      // set 42 phoneme to result
-        return result;
     }
 
 
-    /**
-     * @param path - path to means file
-     * @return - input stream
-     * @throws FileNotFoundException
-     */
     private InputStream openFile(String path) throws FileNotFoundException {
         InputStream is = this.getClass().getResourceAsStream(path);
         return is;
     }
 
-    /**
-     * Find all positions @symbol in str
-     *
-     * @return - array of occurrences @symbol in @str
-     */
     private List<Integer> findAllCharacterInString(String str, String symbol) {
         List<Integer> occurrence = new ArrayList<>();
         int index = str.indexOf(symbol);
