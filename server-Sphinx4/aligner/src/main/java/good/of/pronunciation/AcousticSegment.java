@@ -26,11 +26,11 @@ public class AcousticSegment {
     public Map<Integer, List<Double>> getAcousticSegment(WordResult wordResult) {
         Map<Integer, List<Double>> acousticSegment = new HashMap<>();
 
-        int start = (int) (wordResult.getTimeFrame().getStart() / 10);
-        int end = (int) (wordResult.getTimeFrame().getEnd() / 10);
+        int start = (int) (wordResult.getTimeFrame().getStart());
+        int end = (int) (wordResult.getTimeFrame().getEnd());
 
-        for (int i = start; i <= end; i++) {
-            List<Double> frame = frames.get(i);
+        for (int i = start; i <= end; i+=10) {
+            List<Double> frame = frames.get(i/10);
             acousticSegment.put(i, frame);
         }
         return acousticSegment;

@@ -36,7 +36,7 @@ public class Main {
             e.printStackTrace();
         }
 
-         //---------------------------- MFCC FEATURES ----------------------------
+        //---------------------------- MFCC FEATURES ----------------------------
         GetFirstMFCCfeatures features = new GetFirstMFCCfeatures(audioTrack, keyWord);
         features.extactFeatures();
 
@@ -52,36 +52,27 @@ public class Main {
                 (WordResult::getTimeFrame, acousticSegment::getAcousticSegment));
 
 
-         //---------------------------- READ MDEF ----------------------------
+        //---------------------------- READ MDEF ----------------------------
         ReadMDEF readMDEF = new ReadMDEF();
-        try {
-            MDEF mdef = readMDEF.readMDEF();
-            //String phoneme = wordResults.get(0).getWord().getSpelling().toUpperCase();
-            //String d = mdef.getBase().values().stream().filter(phoneme::equals).findFirst().get();
-            //String str = mdef.getBase().get(phoneme.toUpperCase());
-            log.info("Test mdef");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         //---------------------------- READ MEANS ----------------------------
         ReadMeansVariances readMeans = new ReadMeansVariances();
-        try {
-            Map<Integer, Map<Integer, List<Double>>> means = readMeans.getMeans();
-            log.info("means and variances");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         //---------------------------- READ MIXTURE WEIGHTS ----------------------------
-        ReadMixtureWeights readMixtureWeights  = new ReadMixtureWeights();
+        ReadMixtureWeights readMixtureWeights = new ReadMixtureWeights();
+
+
         try {
-            Map<Integer, List<Double>> mixw =  readMixtureWeights.parseFile();
-            log.info("mixw");
+            MDEF mdef = readMDEF.readMDEF();
+            Map<Integer, Map<Integer, List<Double>>> means = readMeans.getMeans();
+            Map<Integer, List<Double>> mixw = readMixtureWeights.parseFile();
+
+            GOP gop = new GOP(wordResults, mfccFeaturesForPhonemes, mdef, means, mixw);
+            gop.numerator();
+//            String phoneme = wordResults.get(0).getWord().getSpelling().toUpperCase();
+//            String d = mdef.getBase().values().stream().filter(phoneme::equals).findFirst().get();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }
