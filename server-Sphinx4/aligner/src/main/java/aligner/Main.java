@@ -64,6 +64,7 @@ public class Main {
             e.printStackTrace();
         }
 
+        //---------------------------- READ MEANS ----------------------------
         ReadMeansVariances readMeans = new ReadMeansVariances();
         try {
             Map<Integer, Map<Integer, List<Double>>> means = readMeans.getMeans();
@@ -71,6 +72,16 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //---------------------------- READ MIXTURE WEIGHTS ----------------------------
+        ReadMixtureWeights readMixtureWeights  = new ReadMixtureWeights();
+        try {
+            Map<Integer, List<Double>> mixw =  readMixtureWeights.parseFile();
+            log.info("mixw");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 }
