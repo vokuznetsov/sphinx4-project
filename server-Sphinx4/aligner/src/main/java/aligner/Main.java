@@ -65,9 +65,10 @@ public class Main {
         try {
             MDEF mdef = readMDEF.readMDEF();
             Map<Integer, Map<Integer, List<Double>>> means = readMeans.getMeans();
+            Map<Integer, Map<Integer, List<Double>>> variances = readMeans.getVariances();
             Map<Integer, List<Double>> mixw = readMixtureWeights.parseFile();
 
-            GOP gop = new GOP(wordResults, mfccFeaturesForPhonemes, mdef, means, mixw);
+            GOP gop = new GOP(wordResults, mfccFeaturesForPhonemes, mdef, means, variances, mixw);
             gop.numerator();
 //            String phoneme = wordResults.get(0).getWord().getSpelling().toUpperCase();
 //            String d = mdef.getBase().values().stream().filter(phoneme::equals).findFirst().get();

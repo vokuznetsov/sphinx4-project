@@ -3,12 +3,10 @@ package good.of.pronunciation;
 import edu.cmu.sphinx.result.WordResult;
 import edu.cmu.sphinx.util.TimeFrame;
 import org.apache.commons.math3.distribution.MultivariateNormalDistribution;
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.RealMatrix;
-import org.apache.commons.math3.stat.correlation.Covariance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,87 +22,75 @@ public class GOP {
 
     private MDEF mdef;
     private Map<Integer, Map<Integer, List<Double>>> means;
+    private Map<Integer, Map<Integer, List<Double>>> variances;
     private Map<Integer, List<Double>> mixw;
 
     public GOP(List<WordResult> wordResults, Map<TimeFrame, Map<Integer, List<Double>>> mfccFeaturesForPhonemes,
-               MDEF mdef, Map<Integer, Map<Integer, List<Double>>> means, Map<Integer, List<Double>> mixw) {
+               MDEF mdef, Map<Integer, Map<Integer, List<Double>>> means,
+               Map<Integer, Map<Integer, List<Double>>> variances, Map<Integer, List<Double>> mixw) {
 
         this.wordResults = wordResults;
         this.mfccFeaturesForPhonemes = mfccFeaturesForPhonemes;
         this.mdef = mdef;
         this.means = means;
+        this.variances = variances;
         this.mixw = mixw;
     }
 
     public double numerator() {
 
-        TimeFrame timeFrame = wordResults.get(0).getTimeFrame();
-        String phoneme = wordResults.get(0).getWord().toString().toUpperCase();
+        List<Double> probability = new ArrayList<>();
 
-        // 10 - because phoneme "D" is a 10 number in means
-        Map<Integer, List<Double>> vectorMeans = means.get(10);
-        double[] mean = vectorMeans.get(0).stream().mapToDouble(Double::doubleValue).toArray();
+        for (WordResult wordResult : wordResults) {
+            TimeFrame timeFrame = wordResult.getTimeFrame();
 
-        int start = (int) timeFrame.getStart();
-        List<Double> segment = mfccFeaturesForPhonemes.get(timeFrame).get(start);
-        double[] seg = segment.stream().mapToDouble(Double::doubleValue).toArray();
+            for (int i = (int) timeFrame.getStart(); i <= timeFrame.getEnd(); i += 10) {
+                String phoneme = wordResult.getWord().toString().toUpperCase();
+                int numberOfPhoneme = MDEF.getBaseCorrespondTmat().get(phoneme);
 
-        //double[][] one = {{1.0}, {2.0}, {3.0}, {4.0}, {5.0}, {6.0}, {7.0}, {8.0}, {9.0}, {10.0}};
+                List<Double> segment = mfccFeaturesForPhonemes.get(timeFrame).get(i);
+                double[] seg = segment.stream().mapToDouble(Double::doubleValue).toArray();
 
-        RealMatrix realMatrix = new Array2DRowRealMatrix(2,39);
-        realMatrix.setRow(0, seg);
-        realMatrix.setRow(1, mean);
-        Covariance covariance = new Covariance(realMatrix);
-        double[][] data = covariance.getCovarianceMatrix().getData();
+                Map<Integer, List<Double>> vectorMeans = means.get(numberOfPhoneme);
+                Map<Integer, List<Double>> vectorVariances = variances.get(numberOfPhoneme);
+                double result = 0.0;
+                double mixtureWeight = 1.0;
 
-        //RealMatrix realMatrix= covariance.getCovarianceMatrix();
-        //double[][] data = RealMatrix.getData();
-//        double cov =covariance.covariance(three, four);
+                // comp = number of component Gaussian density; comp=1..128
+                for (int comp = 0; comp < means.get(numberOfPhoneme).size(); comp++) {
 
-        MultivariateNormalDistribution distribution = new MultivariateNormalDistribution(mean, data);
-        double result = distribution.density(seg);
+                    double[] mean = vectorMeans.get(comp).stream().mapToDouble(Double::doubleValue).toArray();
+                    double[][] covariance = getCovarianceMatrix(vectorVariances.get(comp));
+
+                    try {
+                        MultivariateNormalDistribution distribution = new MultivariateNormalDistribution(mean, covariance);
+                        result += mixtureWeight * distribution.density(seg);
+                    } catch (Exception e) {
+                        log.info("matrix is singular");
+                    }
+                }
+                probability.add(result);
+            }
+        }
+
 
         log.info("GOP");
         return 0.0;
     }
 
-    public List<WordResult> getWordResults() {
-        return wordResults;
-    }
+    /**
+     * create diagonal covariance matrxix. Diagonal is variances, other values is zero.
+     */
+    private double[][] getCovarianceMatrix(List<Double> variance) {
+        double[][] covariance = new double[39][39];
 
-    public void setWordResults(List<WordResult> wordResults) {
-        this.wordResults = wordResults;
-    }
-
-    public Map<TimeFrame, Map<Integer, List<Double>>> getMfccFeaturesForPhonemes() {
-        return mfccFeaturesForPhonemes;
-    }
-
-    public void setMfccFeaturesForPhonemes(Map<TimeFrame, Map<Integer, List<Double>>> mfccFeaturesForPhonemes) {
-        this.mfccFeaturesForPhonemes = mfccFeaturesForPhonemes;
-    }
-
-    public MDEF getMdef() {
-        return mdef;
-    }
-
-    public void setMdef(MDEF mdef) {
-        this.mdef = mdef;
-    }
-
-    public Map<Integer, Map<Integer, List<Double>>> getMeans() {
-        return means;
-    }
-
-    public void setMeans(Map<Integer, Map<Integer, List<Double>>> means) {
-        this.means = means;
-    }
-
-    public Map<Integer, List<Double>> getMixw() {
-        return mixw;
-    }
-
-    public void setMixw(Map<Integer, List<Double>> mixw) {
-        this.mixw = mixw;
+        for (int i = 0; i < variance.size(); i++) {
+            for (int j = 0; j < variance.size(); j++) {
+                if (i == j) {
+                    covariance[i][j] = variance.get(i);
+                } else covariance[i][j] = 0;
+            }
+        }
+        return covariance;
     }
 }

@@ -21,7 +21,7 @@ public class ReadMDEF {
         String file = "/models/acoustic/16khz/mdef";
         BufferedReader in = new BufferedReader(new InputStreamReader(openFile(file)));
 
-        // skip first 12 string in mdef file, because they are unnecessary for us.
+        // skip first 10 string in mdef file, because they are unnecessary for us.
         for (int i = 0; i < 10; i++) {
             in.readLine();
         }
@@ -53,6 +53,9 @@ public class ReadMDEF {
             mdef.getP().put(count, p);
             mdef.getTmat().put(count, tmat);
             mdef.getStateId().put(count, stateId);
+
+            if (count <= 42)
+                MDEF.getBaseCorrespondTmat().put(base, count-1);
             count++;
         }
         return mdef;

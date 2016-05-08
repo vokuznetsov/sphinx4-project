@@ -3,6 +3,7 @@ package good.of.pronunciation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * First parameter in every map is Integer. It is necessary to find quick some parameters, when we know other.
@@ -18,6 +19,8 @@ public class MDEF {
     private Map<Integer, Integer> tmat;
     private Map<Integer, List<Integer>> stateId;
 
+    private static Map<String, Integer> baseCorrespondTmat;
+
     public MDEF(){
         base = new HashMap<>();
         left = new HashMap<>();
@@ -25,6 +28,8 @@ public class MDEF {
         p = new HashMap<>();
         tmat = new HashMap<>();
         stateId = new HashMap<>();
+
+        baseCorrespondTmat = new TreeMap<>();
     }
 
     public Map<Integer, String> getBase() {
@@ -73,5 +78,9 @@ public class MDEF {
 
     public void setStateId(Map<Integer, List<Integer>> stateId) {
         this.stateId = stateId;
+    }
+
+    public static Map<String, Integer> getBaseCorrespondTmat() {
+        return baseCorrespondTmat;
     }
 }
