@@ -36,8 +36,9 @@ public class ReadMDEF {
             List<Integer> spaces = findAllCharacterInString(str, " ");
 
             String base = str.substring(0, spaces.get(0));
-            String left = str.substring(spaces.get(0) + 1, spaces.get(1));
-            String right = str.substring(spaces.get(1) + 1, spaces.get(2));
+//            String left = str.substring(spaces.get(0) + 1, spaces.get(1));
+//            String right = str.substring(spaces.get(1) + 1, spaces.get(2));
+            String baseLeftRight = str.substring(0, spaces.get(2));
             String p = str.substring(spaces.get(2) + 1, spaces.get(3));
 
             // space.get(3) - space.get(4) - field attrib in mdef (this field is unnecessary for us)
@@ -47,9 +48,10 @@ public class ReadMDEF {
             stateId.add(Integer.valueOf(str.substring(spaces.get(6) + 1, spaces.get(7))));
             stateId.add(Integer.valueOf(str.substring(spaces.get(7) + 1, spaces.get(8))));
 
-            mdef.getBase().put(count, base);
-            mdef.getLeft().put(count, left);
-            mdef.getRight().put(count, right);
+//            mdef.getBase().put(count, base);
+//            mdef.getLeft().put(count, left);
+//            mdef.getRight().put(count, right);
+            mdef.getBaseLeftRight().put(baseLeftRight, count);
             mdef.getP().put(count, p);
             mdef.getTmat().put(count, tmat);
             mdef.getStateId().put(count, stateId);

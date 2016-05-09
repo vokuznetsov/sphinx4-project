@@ -12,19 +12,18 @@ import java.util.TreeMap;
  */
 public class MDEF {
 
-    private Map<Integer, String> base;
-    private Map<Integer, String> left;
-    private Map<Integer, String> right;
+    //    private Map<Integer, String> base;
+//    private Map<Integer, String> left;
+//    private Map<Integer, String> right;
+    private Map<String, Integer> baseLeftRight;
     private Map<Integer, String> p;
     private Map<Integer, Integer> tmat;
     private Map<Integer, List<Integer>> stateId;
 
     private static Map<String, Integer> baseCorrespondTmat;
 
-    public MDEF(){
-        base = new HashMap<>();
-        left = new HashMap<>();
-        right = new HashMap<>();
+    public MDEF() {
+        baseLeftRight = new HashMap<>();
         p = new HashMap<>();
         tmat = new HashMap<>();
         stateId = new HashMap<>();
@@ -32,28 +31,12 @@ public class MDEF {
         baseCorrespondTmat = new TreeMap<>();
     }
 
-    public Map<Integer, String> getBase() {
-        return base;
+    public Map<String, Integer> getBaseLeftRight() {
+        return baseLeftRight;
     }
 
-    public void setBase(Map<Integer, String> base) {
-        this.base = base;
-    }
-
-    public Map<Integer, String> getLeft() {
-        return left;
-    }
-
-    public void setLeft(Map<Integer, String> left) {
-        this.left = left;
-    }
-
-    public Map<Integer, String> getRight() {
-        return right;
-    }
-
-    public void setRight(Map<Integer, String> right) {
-        this.right = right;
+    public void setBaseLeftRight(Map<String, Integer> baseLeftRight) {
+        this.baseLeftRight = baseLeftRight;
     }
 
     public Map<Integer, String> getP() {

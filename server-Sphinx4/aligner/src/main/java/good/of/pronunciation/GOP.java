@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,8 @@ public class GOP {
     private Map<Integer, Map<Integer, List<Double>>> variances;
     private Map<Integer, List<Double>> mixw;
 
+    Map<Integer, String> timeOfPhonemes;
+
     public GOP(List<WordResult> wordResults, Map<TimeFrame, Map<Integer, List<Double>>> mfccFeaturesForPhonemes,
                MDEF mdef, Map<Integer, Map<Integer, List<Double>>> means,
                Map<Integer, Map<Integer, List<Double>>> variances, Map<Integer, List<Double>> mixw) {
@@ -35,17 +38,19 @@ public class GOP {
         this.means = means;
         this.variances = variances;
         this.mixw = mixw;
+
+        this.timeOfPhonemes = getTimeOfPhonemes();
     }
 
     public double numerator() {
 
         List<Double> probability = new ArrayList<>();
 
-        for (WordResult wordResult : wordResults) {
-            TimeFrame timeFrame = wordResult.getTimeFrame();
+        for (int number=0; number < wordResults.size(); number++) {
+            TimeFrame timeFrame = wordResults.get(number).getTimeFrame();
 
             for (int i = (int) timeFrame.getStart(); i <= timeFrame.getEnd(); i += 10) {
-                String phoneme = wordResult.getWord().toString().toUpperCase();
+                String phoneme = wordResults.get(number).getWord().toString().toUpperCase();
                 int numberOfPhoneme = MDEF.getBaseCorrespondTmat().get(phoneme);
 
                 List<Double> segment = mfccFeaturesForPhonemes.get(timeFrame).get(i);
@@ -54,7 +59,7 @@ public class GOP {
                 Map<Integer, List<Double>> vectorMeans = means.get(numberOfPhoneme);
                 Map<Integer, List<Double>> vectorVariances = variances.get(numberOfPhoneme);
                 double result = 0.0;
-                double mixtureWeight = 1.0;
+                List<Double> mixtureWeight = getMixtureWeights(number, i);
 
                 // comp = number of component Gaussian density; comp=1..128
                 for (int comp = 0; comp < means.get(numberOfPhoneme).size(); comp++) {
@@ -64,7 +69,8 @@ public class GOP {
 
                     try {
                         MultivariateNormalDistribution distribution = new MultivariateNormalDistribution(mean, covariance);
-                        result += mixtureWeight * distribution.density(seg);
+                        result += mixtureWeight.get(comp) * distribution.density(seg);
+                        //result += distribution.density(seg);
                     } catch (Exception e) {
                         log.info("matrix is singular");
                     }
@@ -92,5 +98,46 @@ public class GOP {
             }
         }
         return covariance;
+    }
+
+    private Map<Integer, String> getTimeOfPhonemes() {
+
+        Map<Integer, String> result = new HashMap<>();
+
+        for (WordResult wordResult : wordResults) {
+
+            String phoneme = wordResult.getWord().toString().toUpperCase();
+            int start = (int) wordResult.getTimeFrame().getStart();
+            int end = (int) wordResult.getTimeFrame().getEnd();
+
+            for (int i = start; i <= end; i += 10)
+                result.put(i, phoneme);
+        }
+
+        return result;
+    }
+
+    private List<Double> getMixtureWeights(int numberOfWordList, int time) {
+
+        String base = wordResults.get(numberOfWordList).getWord().toString().toUpperCase();
+        String left;
+        String right;
+        String baseLeftRight;
+
+        if (timeOfPhonemes.containsKey(time - 10)) {
+            left = timeOfPhonemes.get(time - 10);
+        } else left = "SIL";
+
+        if (timeOfPhonemes.containsKey(time + 10)) {
+            right = timeOfPhonemes.get(time + 10);
+        } else right = "SIL";
+
+        baseLeftRight = base + " " + left + " " + right;
+        int number = mdef.getBaseLeftRight().get(baseLeftRight);
+
+        //int tmat = mdef.getTmat().get(number);
+        List<Integer> stateId = mdef.getStateId().get(number);
+
+        return mixw.get(stateId.get(0));
     }
 }
