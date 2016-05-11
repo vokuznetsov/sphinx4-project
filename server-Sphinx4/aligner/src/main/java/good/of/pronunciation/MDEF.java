@@ -1,5 +1,10 @@
 package good.of.pronunciation;
 
+import org.apache.commons.collections4.MultiMap;
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.map.MultiValueMap;
+import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,15 +17,13 @@ import java.util.TreeMap;
  */
 public class MDEF {
 
-    //    private Map<Integer, String> base;
-//    private Map<Integer, String> left;
-//    private Map<Integer, String> right;
     private Map<String, Integer> baseLeftRight;
     private Map<Integer, String> p;
     private Map<Integer, Integer> tmat;
     private Map<Integer, List<Integer>> stateId;
 
     private static Map<String, Integer> baseCorrespondTmat;
+    private static MultiValuedMap<Integer, Integer> tmatStateId;
 
     public MDEF() {
         baseLeftRight = new HashMap<>();
@@ -29,6 +32,7 @@ public class MDEF {
         stateId = new HashMap<>();
 
         baseCorrespondTmat = new TreeMap<>();
+        tmatStateId = new HashSetValuedHashMap<>();
     }
 
     public Map<String, Integer> getBaseLeftRight() {
@@ -65,5 +69,17 @@ public class MDEF {
 
     public static Map<String, Integer> getBaseCorrespondTmat() {
         return baseCorrespondTmat;
+    }
+
+    public static void setBaseCorrespondTmat(Map<String, Integer> baseCorrespondTmat) {
+        MDEF.baseCorrespondTmat = baseCorrespondTmat;
+    }
+
+    public static MultiValuedMap<Integer, Integer> getTmatStateId() {
+        return tmatStateId;
+    }
+
+    public static void setTmatStateId(MultiValuedMap<Integer, Integer> tmatStateId) {
+        MDEF.tmatStateId = tmatStateId;
     }
 }

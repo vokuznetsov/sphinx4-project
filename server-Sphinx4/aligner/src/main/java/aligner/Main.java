@@ -69,9 +69,11 @@ public class Main {
             Map<Integer, List<Double>> mixw = readMixtureWeights.parseFile();
 
             GOP gop = new GOP(wordResults, mfccFeaturesForPhonemes, mdef, means, variances, mixw);
-            gop.numerator();
-//            String phoneme = wordResults.get(0).getWord().getSpelling().toUpperCase();
-//            String d = mdef.getBase().values().stream().filter(phoneme::equals).findFirst().get();
+            List<Double> numerator = gop.numerator();
+            List<Double> denominator = gop.denominator();
+
+            log.info("numerator: " + numerator);
+            log.info("numerator: " + denominator);
         } catch (IOException e) {
             e.printStackTrace();
         }
