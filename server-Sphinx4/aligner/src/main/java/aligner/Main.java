@@ -19,12 +19,14 @@ import java.util.stream.Collectors;
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
-    private static String keyWord = "development";
+    //private static String keyWord = "development";
+    private static String keyWord = "pizzeria";
     //private static final String TEXT = "one zero zero zero one nine oh two one oh zero one eight zero three";
 
     private static Map<TimeFrame, Map<Integer, List<Double>>> mfccFeaturesForPhonemes;
 
-    private static String audioTrack = "development_male_1.wav.wav";
+    //private static String audioTrack = "development_male_1.wav.wav";
+    private static String audioTrack = "pizzeria_female_2.wav.wav";
 
     public static void main(String[] args) {
         List<WordResult> wordResults = new ArrayList<>();
@@ -72,8 +74,20 @@ public class Main {
             List<Double> numerator = gop.numerator();
             List<Double> denominator = gop.denominator();
 
+            List<Double> probability = new ArrayList<>();
+            for (int i = 0; i < denominator.size(); i++) {
+                double result = Math.log(numerator.get(i) / denominator.get(i));
+                probability.add(Math.abs(result));
+            }
+
             log.info("numerator: " + numerator);
-            log.info("numerator: " + denominator);
+            log.info("denominator: " + denominator);
+
+            log.info("Probability: " + probability.toString());
+
+            double sum = probability.stream().reduce((aDouble, aDouble2) -> aDouble + aDouble2).orElse(0.0);
+            log.info("Sum of probabilities: " + sum / probability.size());
+
         } catch (IOException e) {
             e.printStackTrace();
         }

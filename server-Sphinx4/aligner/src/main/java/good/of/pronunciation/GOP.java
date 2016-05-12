@@ -77,12 +77,6 @@ public class GOP {
             }
         }
 
-//        double result = 1.0;
-//        for (int i=0; i < probability.size(); i++) {
-//            result *= probability.get(i);
-//        }
-//
-//         //result= probability.stream().reduce((aDouble, aDouble2) -> aDouble*aDouble2).orElse(0.0);
         return probability;
     }
 
@@ -91,10 +85,10 @@ public class GOP {
         int count = -1;
         List<Double> maxProbability = new ArrayList<>();
 
-        //for (int number = 0; number < wordResults.size(); number++) {
-            TimeFrame timeFrame = wordResults.get(0).getTimeFrame();
+        for (int number = 0; number < wordResults.size(); number++) {
+            TimeFrame timeFrame = wordResults.get(number).getTimeFrame();
 
-            for (int i = (int) timeFrame.getStart(); i <= 320 /*timeFrame.getEnd()*/;  i += 10) {
+            for (int i = (int) timeFrame.getStart(); i <= timeFrame.getEnd();  i += 10) {
 
                 count++;
                 List<Double> segment = mfccFeaturesForPhonemes.get(timeFrame).get(i);
@@ -115,12 +109,11 @@ public class GOP {
                             double[] mean = vectorMeans.get(comp).stream().mapToDouble(Double::doubleValue).toArray();
                             double[][] covariance = getCovarianceMatrix(vectorVariances.get(comp));
 
-                            String ss;
                             try {
                                 MultivariateNormalDistribution distribution = new MultivariateNormalDistribution(mean, covariance);
                                 result += mixtureWeight.get(comp) * distribution.density(seg);
                             } catch (Exception e) {
-                                log.info("matrix is singular for" + i + " from" + timeFrame.getEnd());
+                                log.info("matrix is singular for " + i + " from " + timeFrame.getEnd() + ". Phoneme is " + wordResults.get(number).getWord().toString());
                             }
                         }
 
@@ -130,12 +123,9 @@ public class GOP {
                             maxProbability.set(count, result);
                         }
                     }
-                    //log.info("mixture weights");
-
                 }
-                //log.info("time Frame");
             }
-        //}
+        }
 
 
         return maxProbability;
@@ -196,31 +186,5 @@ public class GOP {
         List<Integer> stateId = mdef.getStateId().get(number);
 
         return mixw.get(stateId.get(0));
-    }
-
-    private List<Double> getMixtureWeightsForDenominator(int numberOfWordList, int time) {
-
-//        String base = wordResults.get(numberOfWordList).getWord().toString().toUpperCase();
-//        String left;
-//        String right;
-//        String baseLeftRight;
-//
-//        if (timeOfPhonemes.containsKey(time - 10)) {
-//            left = timeOfPhonemes.get(time - 10);
-//        } else left = "SIL";
-//
-//        if (timeOfPhonemes.containsKey(time + 10)) {
-//            right = timeOfPhonemes.get(time + 10);
-//        } else right = "SIL";
-//
-//        baseLeftRight = base + " " + left + " " + right;
-//        int number = mdef.getBaseLeftRight().get(baseLeftRight);
-//
-//        //int tmat = mdef.getTmat().get(number);
-//        List<Integer> stateId = mdef.getStateId().get(number);
-//
-//        return mixw.get(stateId.get(0));
-
-        return null;
     }
 }
