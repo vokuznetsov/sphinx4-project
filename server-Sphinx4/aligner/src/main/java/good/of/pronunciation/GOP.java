@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @author vkuzn on 06.05.2016.
@@ -68,9 +70,7 @@ public class GOP {
                     try {
                         MultivariateNormalDistribution distribution = new MultivariateNormalDistribution(mean, covariance);
                         result += mixtureWeight.get(comp) * distribution.density(seg);
-                        //result += distribution.density(seg);
                     } catch (Exception e) {
-                        log.info("matrix is singular");
                     }
                 }
                 probability.add(result);
@@ -84,49 +84,39 @@ public class GOP {
 
         int count = -1;
         List<Double> maxProbability = new ArrayList<>();
+        Map<Integer, Map<Integer, Double>> density;
 
         for (int number = 0; number < wordResults.size(); number++) {
             TimeFrame timeFrame = wordResults.get(number).getTimeFrame();
 
-            for (int i = (int) timeFrame.getStart(); i <= timeFrame.getEnd();  i += 10) {
+            for (int i = (int) timeFrame.getStart(); i <= timeFrame.getEnd(); i += 10) {
 
                 count++;
                 List<Double> segment = mfccFeaturesForPhonemes.get(timeFrame).get(i);
                 double[] seg = segment.stream().mapToDouble(Double::doubleValue).toArray();
 
-                for (int j = 0; j < MDEF.getTmatStateId().size(); j++) {
+                density = getDensityEveryPhoneme(seg, i);
+                List<Double> maxDensity = new ArrayList<>();
 
-                    Map<Integer, List<Double>> vectorMeans = means.get(j);
-                    Map<Integer, List<Double>> vectorVariances = variances.get(j);
+                for (int j = 0; j < MDEF.getTmatStateId().asMap().size(); j++) {
 
-                    for (Integer mixWeight: MDEF.getTmatStateId().get(j)) {
+                    List<Double> sumOfResult = new ArrayList<>();
+                    for (Integer mixWeight : MDEF.getTmatStateId().get(j)) {
 
-                        double result = 0.0;
                         List<Double> mixtureWeight = mixw.get(mixWeight);
+                        Map<Integer, Double> desityOfPhoneme = density.get(j);
 
-                        for (int comp = 0; comp < means.get(j).size(); comp++) {
-
-                            double[] mean = vectorMeans.get(comp).stream().mapToDouble(Double::doubleValue).toArray();
-                            double[][] covariance = getCovarianceMatrix(vectorVariances.get(comp));
-
-                            try {
-                                MultivariateNormalDistribution distribution = new MultivariateNormalDistribution(mean, covariance);
-                                result += mixtureWeight.get(comp) * distribution.density(seg);
-                            } catch (Exception e) {
-                                log.info("matrix is singular for " + i + " from " + timeFrame.getEnd() + ". Phoneme is " + wordResults.get(number).getWord().toString());
-                            }
-                        }
-
-                        if (count != maxProbability.size() - 1)
-                            maxProbability.add(result);
-                        else if (maxProbability.get(count) < result) {
-                            maxProbability.set(count, result);
-                        }
+                        List<Double> array = IntStream.range(0, mixtureWeight.size())
+                                .mapToObj(k -> mixtureWeight.get(k) * desityOfPhoneme.get(k))
+                                .collect(Collectors.toList());
+                        double result = array.stream().mapToDouble(Double::doubleValue).sum();
+                        sumOfResult.add(result);
                     }
+                    maxDensity.add(sumOfResult.stream().max(Double::compareTo).get());
                 }
+                maxProbability.add(maxDensity.stream().max(Double::compareTo).get());
             }
         }
-
 
         return maxProbability;
     }
@@ -186,5 +176,42 @@ public class GOP {
         List<Integer> stateId = mdef.getStateId().get(number);
 
         return mixw.get(stateId.get(0));
+    }
+
+    private Map<Integer, Map<Integer, Double>> getDensityEveryPhoneme(double[] seg, int frame) {
+
+        /**
+         * 1-st integer is number of phoneme
+         * 2-nd integer is value from 1..128
+         * 3-d integer is density for 2-d parametr
+         */
+        Map<Integer, Map<Integer, Double>> densityEveryPhoneme = new HashMap<>();
+
+        for (int j = 0; j < MDEF.getTmatStateId().asMap().size(); j++) {
+
+            Map<Integer, List<Double>> vectorMeans = means.get(j);
+            Map<Integer, List<Double>> vectorVariances = variances.get(j);
+
+            //value means a number from 1 to 128
+            Map<Integer, Double> destinyForEachValue = new HashMap<>();
+            double result = 0.0;
+
+            for (int comp = 0; comp < means.get(j).size(); comp++) {
+
+                double[] mean = vectorMeans.get(comp).stream().mapToDouble(Double::doubleValue).toArray();
+                double[][] covariance = getCovarianceMatrix(vectorVariances.get(comp));
+
+                try {
+                    MultivariateNormalDistribution distribution = new MultivariateNormalDistribution(mean, covariance);
+                    result += distribution.density(seg);
+                    destinyForEachValue.put(comp, result);
+                } catch (Exception e) {
+                    destinyForEachValue.put(comp, 0.0);
+                }
+            }
+            densityEveryPhoneme.put(j, destinyForEachValue);
+
+        }
+        return densityEveryPhoneme;
     }
 }

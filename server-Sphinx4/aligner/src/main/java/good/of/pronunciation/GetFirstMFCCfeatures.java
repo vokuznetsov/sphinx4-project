@@ -15,7 +15,6 @@ import java.util.Map;
 /**
  * @author vkuzn on 17.04.2016.
  *
- *
  * Compute first 13 (from 39) values of mfcc feature.
  */
 public class GetFirstMFCCfeatures {
@@ -37,12 +36,12 @@ public class GetFirstMFCCfeatures {
             this.inputAudioTrack = "";
         }
 
-//        outputFile = "C:\\Users\\Vladimir\\Documents\\IdeaProjects\\Git\\sphinx4-project\\" +
-//                "server-Sphinx4\\extraction\\features\\" + "features_"
-//                + audioTrack.substring(0, audioTrack.length() - 7) + "txt";
+        outputFile = "C:\\Users\\Vladimir\\Documents\\IdeaProjects\\Git\\sphinx4-project\\" +
+                "server-Sphinx4\\extraction\\features\\" + "features_"
+                + audioTrack.substring(0, audioTrack.length() - 8) + ".txt";
 
-        outputFile = "C:\\Users\\vkuzn\\Documents\\IdeaProjects\\CourseWork\\sphinx4-project\\server-Sphinx4\\extraction\\features\\"
-                + "features_"  + audioTrack.substring(0, audioTrack.length() - 7) + "txt";
+//        outputFile = "C:\\Users\\vkuzn\\Documents\\IdeaProjects\\CourseWork\\sphinx4-project\\server-Sphinx4\\extraction\\features\\"
+//                + "features_"  + audioTrack.substring(0, audioTrack.length() - 8) + ".txt";
     }
 
     public void extactFeatures() {

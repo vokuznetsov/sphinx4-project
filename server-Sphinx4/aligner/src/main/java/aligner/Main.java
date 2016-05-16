@@ -19,14 +19,15 @@ import java.util.stream.Collectors;
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
-    //private static String keyWord = "development";
-    private static String keyWord = "pizzeria";
+    private static String keyWord = "development";
+    //private static String keyWord = "pizzeria";
     //private static final String TEXT = "one zero zero zero one nine oh two one oh zero one eight zero three";
 
     private static Map<TimeFrame, Map<Integer, List<Double>>> mfccFeaturesForPhonemes;
 
-    //private static String audioTrack = "development_male_1.wav.wav";
-    private static String audioTrack = "pizzeria_female_2.wav.wav";
+    private static String audioTrack = "development_male_1.wav.wav";
+    //private static String audioTrack = "pizzeria_male_1.wav.wav";
+    //private static String audioTrack = "pizzeria_non(1).wav";
 
     public static void main(String[] args) {
         List<WordResult> wordResults = new ArrayList<>();
@@ -86,7 +87,7 @@ public class Main {
             log.info("Probability: " + probability.toString());
 
             double sum = probability.stream().reduce((aDouble, aDouble2) -> aDouble + aDouble2).orElse(0.0);
-            log.info("Sum of probabilities: " + sum / probability.size());
+            log.info("Sum of probabilities: " + sum / probability.size() + " for word " + keyWord + " " + audioTrack);
 
         } catch (IOException e) {
             e.printStackTrace();
