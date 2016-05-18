@@ -26,7 +26,7 @@ public class GetFirstMFCCfeatures {
     private String inputAudioTrack;
     private String outputFile;
 
-    public GetFirstMFCCfeatures(String nativeNonNativeModel,String audioTrack, String keyWord) {
+    public GetFirstMFCCfeatures(String nativeNonNativeModel, String keyWord, String audioTrack) {
         this.audioTrack = audioTrack;
         this.keyWord = keyWord;
         try {

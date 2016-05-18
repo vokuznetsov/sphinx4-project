@@ -164,13 +164,27 @@ public class GOP {
         if (timeOfPhonemes.containsKey(time - 10)) {
             left = timeOfPhonemes.get(time - 10);
         } else left = "SIL";
-
         if (timeOfPhonemes.containsKey(time + 10)) {
             right = timeOfPhonemes.get(time + 10);
         } else right = "SIL";
 
         baseLeftRight = base + " " + left + " " + right;
-        int number = mdef.getBaseLeftRight().get(baseLeftRight);
+        int number;
+        try {
+            number = mdef.getBaseLeftRight().get(baseLeftRight);
+        } catch (NullPointerException e) {
+            // КОСТЫЛЬ (crutch)!!!
+            // mdef иногда не содержит ту последовательность фонем, что мы передаем и выбрасывает NullPointerException.
+            // Это происходит из-за right фонемы (только на случаи c right phoneme я натыкался)
+
+            baseLeftRight = base + " " + left;
+            for (String phonemes: mdef.getBaseLeftRight().keySet()) {
+                if (phonemes.contains(baseLeftRight))
+                    baseLeftRight = phonemes;
+            }
+            number = mdef.getBaseLeftRight().get(baseLeftRight);
+        }
+
 
         //int tmat = mdef.getTmat().get(number);
         List<Integer> stateId = mdef.getStateId().get(number);

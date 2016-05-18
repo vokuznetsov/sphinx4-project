@@ -49,7 +49,8 @@ public class Main1 {
         try {
             Files.walk(Paths.get(pathToFolder)).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
-                    System.out.println(filePath);
+                    //System.out.println(filePath.getParent().getFileName());
+                    System.out.println(filePath.getFileName());
                 }
             });
         } catch (IOException e) {
