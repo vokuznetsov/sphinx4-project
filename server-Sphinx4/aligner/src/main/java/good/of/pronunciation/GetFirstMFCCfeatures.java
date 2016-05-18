@@ -26,30 +26,32 @@ public class GetFirstMFCCfeatures {
     private String inputAudioTrack;
     private String outputFile;
 
-    public GetFirstMFCCfeatures(String audioTrack, String keyWord) {
+    public GetFirstMFCCfeatures(String nativeNonNativeModel,String audioTrack, String keyWord) {
         this.audioTrack = audioTrack;
         this.keyWord = keyWord;
         try {
-            this.inputAudioTrack = GetFirstMFCCfeatures.class.getClassLoader().getResource("audio/16kHz_16bit_native/"
+            this.inputAudioTrack = GetFirstMFCCfeatures.class.getClassLoader().getResource(nativeNonNativeModel
                     + keyWord + "/" + audioTrack).getPath();
         } catch (NullPointerException e) {
             this.inputAudioTrack = "";
         }
 
-        outputFile = "C:\\Users\\Vladimir\\Documents\\IdeaProjects\\Git\\sphinx4-project\\" +
-                "server-Sphinx4\\extraction\\features\\" + "features_"
-                + audioTrack.substring(0, audioTrack.length() - 8) + ".txt";
+//        outputFile = "C:\\Users\\Vladimir\\Documents\\IdeaProjects\\Git\\sphinx4-project\\" +
+//                "server-Sphinx4\\extraction\\features\\" + "features_"
+//                + audioTrack.substring(0, audioTrack.length() - 4) + ".txt";
 
-//        outputFile = "C:\\Users\\vkuzn\\Documents\\IdeaProjects\\CourseWork\\sphinx4-project\\server-Sphinx4\\extraction\\features\\"
-//                + "features_"  + audioTrack.substring(0, audioTrack.length() - 8) + ".txt";
+        outputFile = "C:\\Users\\vkuzn\\Documents\\IdeaProjects\\CourseWork\\sphinx4-project\\server-Sphinx4\\extraction\\features\\"
+                + "features_"  + audioTrack.substring(0, audioTrack.length() - 4) + ".txt";
     }
 
-    public void extactFeatures() {
+    public Map<Integer, List<Double>> extactFeatures() {
         // -name cepstraFrontEnd, spectraFrontEnd, plpFrontEnd
         // -format binary/ascii
 
         String[] args1 = {"-name", "cepstraFrontEnd", "-i", inputAudioTrack, "-o", outputFile, "-format", "ascii"};
         FeatureFileDumper.main(args1);
+
+        return readMFCCfile();
     }
 
     public String getAudioTrack() {
@@ -68,7 +70,7 @@ public class GetFirstMFCCfeatures {
         this.inputAudioTrack = inputAudioTrack;
     }
 
-    public Map<Integer, List<Double>> readMFCCfile() {
+    private Map<Integer, List<Double>> readMFCCfile() {
 
         try (BufferedReader br = new BufferedReader(new FileReader(outputFile))) {
 

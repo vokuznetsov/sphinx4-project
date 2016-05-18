@@ -19,41 +19,14 @@ import java.util.stream.Collectors;
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
-    private static String keyWord = "development";
-    //private static String keyWord = "pizzeria";
-    //private static final String TEXT = "one zero zero zero one nine oh two one oh zero one eight zero three";
+    private static final String NATIVE_NON_NATIVE = "audio/16kHz_16bit_native/";
+    private static final String KEY_WORD = "development";
+    private static final String AUDIO_TRACK = "development_male_1.wav.wav";
+    private static final String PRONUNCIATION = "NATIVE";
 
-    private static Map<TimeFrame, Map<Integer, List<Double>>> mfccFeaturesForPhonemes;
-
-    private static String audioTrack = "development_male_1.wav.wav";
-    //private static String audioTrack = "pizzeria_male_1.wav.wav";
-    //private static String audioTrack = "pizzeria_non(1).wav";
+    private static FullMFCCfeatures fullMFCCfeatures = new FullMFCCfeatures();
 
     public static void main(String[] args) {
-        List<WordResult> wordResults = new ArrayList<>();
-        mfccFeaturesForPhonemes = new HashMap<>();
-        try {
-            Aligner aligner = new Aligner(keyWord, audioTrack);
-            wordResults = aligner.aligner();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //---------------------------- MFCC FEATURES ----------------------------
-        GetFirstMFCCfeatures features = new GetFirstMFCCfeatures(audioTrack, keyWord);
-        features.extactFeatures();
-
-        Map<Integer, List<Double>> firstFrames = features.readMFCCfile();
-
-        FullMFCCfeatures fullMFCCfeatures = new FullMFCCfeatures(firstFrames);
-        Map<Integer, List<Double>> frames = fullMFCCfeatures.getFullMFCCfeatures();
-        log.info("frames");
-
-        // ---------------------------- ACOUSTIC SEGMENT (O(p)) ----------------------------
-        AcousticSegment acousticSegment = new AcousticSegment(frames);
-        mfccFeaturesForPhonemes = wordResults.stream().collect(Collectors.toMap
-                (WordResult::getTimeFrame, acousticSegment::getAcousticSegment));
-
 
         //---------------------------- READ MDEF ----------------------------
         ReadMDEF readMDEF = new ReadMDEF();
@@ -71,6 +44,21 @@ public class Main {
             Map<Integer, Map<Integer, List<Double>>> variances = readMeans.getVariances();
             Map<Integer, List<Double>> mixw = readMixtureWeights.parseFile();
 
+
+            //---------------------------- MFCC FEATURES ----------------------------
+            GetFirstMFCCfeatures features = new GetFirstMFCCfeatures(NATIVE_NON_NATIVE, AUDIO_TRACK, KEY_WORD);
+            Map<Integer, List<Double>> firstFrames = features.extactFeatures();
+            Map<Integer, List<Double>> frames = fullMFCCfeatures.getFullMFCCfeatures(firstFrames);
+
+            //---------------------------- GET WORD RESULT ----------------------------
+            Aligner aligner = new Aligner(NATIVE_NON_NATIVE, KEY_WORD, AUDIO_TRACK);
+            List<WordResult> wordResults = aligner.aligner();
+
+            // ---------------------------- ACOUSTIC SEGMENT (O(p)) ----------------------------
+            AcousticSegment acousticSegment = new AcousticSegment(frames);
+            Map<TimeFrame, Map<Integer, List<Double>>> mfccFeaturesForPhonemes = wordResults.stream().
+                    collect(Collectors.toMap(WordResult::getTimeFrame, acousticSegment::getAcousticSegment));
+
             GOP gop = new GOP(wordResults, mfccFeaturesForPhonemes, mdef, means, variances, mixw);
             List<Double> numerator = gop.numerator();
             List<Double> denominator = gop.denominator();
@@ -81,13 +69,13 @@ public class Main {
                 probability.add(Math.abs(result));
             }
 
-            log.info("numerator: " + numerator);
-            log.info("denominator: " + denominator);
-
-            log.info("Probability: " + probability.toString());
 
             double sum = probability.stream().reduce((aDouble, aDouble2) -> aDouble + aDouble2).orElse(0.0);
-            log.info("Sum of probabilities: " + sum / probability.size() + " for word " + keyWord + " " + audioTrack);
+            log.info("\nPronunciation :     " + PRONUNCIATION + "\n"
+                    + "Audio track   :     " + AUDIO_TRACK.substring(0, AUDIO_TRACK.length() - 4) + "\n"
+                    + "Word          :     " + KEY_WORD.toUpperCase() + "\n"
+                    + "Probability   :     " + sum / probability.size() + "\n"
+                    + "#######################################################\n" );
 
         } catch (IOException e) {
             e.printStackTrace();

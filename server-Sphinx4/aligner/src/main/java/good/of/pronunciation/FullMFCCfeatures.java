@@ -18,13 +18,7 @@ public class FullMFCCfeatures {
     private static int SECOND_FRAMES = 26;
 
 
-    // 13 firsts mfcc features. Get from GetFirstMFCCfeatures.class
-    private Map<Integer, List<Double>> firstFrames;
-    private Map<Integer, List<Double>> fullFrames;
-
-    public FullMFCCfeatures(Map<Integer, List<Double>> firstFrames) {
-        this.firstFrames = new HashMap<>(firstFrames);
-        fullFrames = new HashMap<>(firstFrames);
+    public FullMFCCfeatures() {
     }
 
 
@@ -33,13 +27,13 @@ public class FullMFCCfeatures {
      * second frames - 13-25
      * third frames  - 27-38
      */
-    public Map<Integer, List<Double>> getFullMFCCfeatures() {
-
-        Map<Integer, List<Double>> secondFrames = new HashMap<>();
+    public Map<Integer, List<Double>> getFullMFCCfeatures(Map<Integer, List<Double>> frames) {
+        // 13 firsts mfcc features. Get from GetFirstMFCCfeatures.class
+        Map<Integer, List<Double>> firstFrames = new HashMap<>(frames);
+        Map<Integer, List<Double>> fullFrames = new HashMap<>(frames);
 
         // (-3) because we exclude 2 last frames. We can't compute second and third frames for their.
         for (int i = 0; i < firstFrames.size() - 1; i++) {
-
             for (int j = 0; j < FIRST_FRAMES; j++) {
                 fullFrames.get(i).add(firstFrames.get(i).get(j) - firstFrames.get(i + 1).get(j));
             }

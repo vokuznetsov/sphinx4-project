@@ -21,17 +21,18 @@ public class Aligner {
     //private static final String acousticModel = "resource:/models/en-us/acoustic/8khz-5.1";
     //private static final String dictionaryPath = "resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict";
     private static final String dictionaryPath = "resource:/models/en-us/language model and dictionary/phonemes.dic";
-    private String audioTrack;
 
+    private String audioTrack;
     private String keyWords;
     private SpeechAligner speechAligner;
     private URL audio;
 
-    public Aligner(String keyWords, String audioTrack) throws IOException {
+    public Aligner(String nativeNonNativeModel, String keyWords, String audioTrack) throws IOException {
+
         this.keyWords = keyWords;
         this.audioTrack = audioTrack;
         speechAligner = new SpeechAligner(acousticModel, dictionaryPath, null);
-        audio = this.getClass().getClassLoader().getResource("audio/16kHz_16bit_native/" + keyWords + "/" + audioTrack);
+        audio = this.getClass().getClassLoader().getResource(nativeNonNativeModel + keyWords + "/" + audioTrack);
     }
 
     public List<WordResult>  aligner() throws IOException {
