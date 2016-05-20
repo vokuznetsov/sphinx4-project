@@ -36,12 +36,12 @@ public class GetFirstMFCCfeatures {
             this.inputAudioTrack = "";
         }
 
-//        outputFile = "C:\\Users\\Vladimir\\Documents\\IdeaProjects\\Git\\sphinx4-project\\" +
-//                "server-Sphinx4\\extraction\\features\\" + "features_"
-//                + audioTrack.substring(0, audioTrack.length() - 4) + ".txt";
+        outputFile = "C:\\Users\\Vladimir\\Documents\\IdeaProjects\\Git\\sphinx4-project\\" +
+                "server-Sphinx4\\extraction\\features\\" + "features_"
+                + audioTrack.substring(0, audioTrack.length() - 4) + ".txt";
 
-        outputFile = "C:\\Users\\vkuzn\\Documents\\IdeaProjects\\CourseWork\\sphinx4-project\\server-Sphinx4\\extraction\\features\\"
-                + "features_"  + audioTrack.substring(0, audioTrack.length() - 4) + ".txt";
+//        outputFile = "C:\\Users\\vkuzn\\Documents\\IdeaProjects\\CourseWork\\sphinx4-project\\server-Sphinx4\\extraction\\features\\"
+//                + "features_"  + audioTrack.substring(0, audioTrack.length() - 4) + ".txt";
     }
 
     public Map<Integer, List<Double>> extactFeatures() {
